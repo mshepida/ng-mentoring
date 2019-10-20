@@ -1,27 +1,31 @@
-export interface Course {
-    id: number,
-    title: string,
-    creation_date: string,
-    duration: number,
-    description: string
-  }
-  
- export interface User {
-    id: number,
-    first_name: string,
-    last_name: string
+  export interface Course {
+    id: number;
+    title: string;
+    creationDate: Date;
+    duration: number;
+    description: string;
   }
 
-  class TestCourse implements Course {
-    id: 1;
-    title: "Course 1";
-    duration: 32;
-    description: 'test course'
-    creation_date: '11 Sep 2016' 
+  export interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
   }
-  
-  class TestUser implements User {
-    id: 1;
-    first_name: 'Alan';
-    last_name: 'Paul';
+
+  export class CourseClass implements Course {
+    constructor(
+      public id: number,
+      public title: string,
+      public duration: number,
+      public description: string,
+      public creationDate: Date
+    ) {}
+  }
+
+  export class UserClass implements User {
+    constructor(
+      public id: number,
+      public firstName: string,
+      public lastName: string,
+    ) {}
   }
