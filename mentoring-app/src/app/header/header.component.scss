@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+
+    &_logo {
+        img {
+            width: 160px;
+            height: 45px;
+        }
+
+    }
+}

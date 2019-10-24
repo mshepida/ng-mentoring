@@ -7,6 +7,10 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SectionComponent } from './section/section.component';
 import { CourseComponent } from './course/course.component';
 import { FooterComponent } from './footer/footer.component';
+import  {MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
