@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SectionComponent implements OnInit {
 
+  public searchInput: string;
   constructor() { }
 
   ngOnInit() {
   }
+
+  onFindClick(): void {
+    console.log(this.searchInput)
+  };
 
 }

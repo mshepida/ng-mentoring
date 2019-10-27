@@ -1,0 +1,22 @@
+<a [routerLink]="['/courses', course.id]">
+<mat-card>
+    <div class="course">
+        <div class="course_date">
+            {{course.creationDate | date}}
+        </div>
+        <div class="course_title">
+                {{course.title}}
+        </div>
+        <div class="course_description">
+            {{course.description}}
+        </div>
+        <div class="course_duration">
+                {{getCourseDuration(course.duration)}}
+        </div>
+        <div class="course_controls">
+                <button mat-raised-button (click)="onEdit()">Edit</button>
+                <button mat-raised-button color="warn" (click)="onDelete(course.id)">Delete</button>
+        </div>
+    </div>
+</mat-card>
+</a>

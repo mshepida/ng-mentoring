@@ -1,1 +1,6 @@
-<p>course works!</p>
+<div class="courses">
+    <app-course-item *ngFor="let course of courses"
+                    [course]="course"
+                    (deleteCourse)="handleDelete($event)"></app-course-item>
+    <button class="load-more-btn" (click)="onLoadMore()" mat-stroked-button>Load more</button>
+</div>

@@ -1,0 +1,58 @@
+a {
+    color: inherit; 
+    text-decoration: inherit
+}
+
+
+mat-card {
+    transition: ease-in 0.2s;
+}
+
+mat-card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+    transform: translateY(-0.25em);
+    cursor: pointer;
+}
+
+.course {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+
+    &_date {
+        font-size: 14px;
+        color: #444;
+        font-family: sans-serif;
+        margin-right: 30px;
+    }
+
+    &_title {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-right:100px;
+    }
+
+    &_description {
+        font-size: 14px;
+        color: #444;
+        font-family: sans-serif;
+        margin-right: 30px;
+        width: 185px;
+    }
+
+    &_duration {
+        font-size: 14px;
+        color: #444;
+        font-family: sans-serif;
+        padding:10px;
+        margin-right: 30px;
+        width: 85px;
+    }
+
+    &_controls {
+        button {
+            margin: 0 5px;
+        }
+    }
+}
