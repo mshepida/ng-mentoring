@@ -14,7 +14,7 @@ export class SectionComponent implements OnInit {
   }
 
   onFindClick(): void {
-    console.log(this.searchInput)
-  };
+    console.log(this.searchInput);
+  }
 
 }

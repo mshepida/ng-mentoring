@@ -12,7 +12,7 @@ export class CourseComponent implements OnInit, OnChanges, AfterContentInit, OnD
   constructor() {}
 
   ngOnInit() {
-    console.log("On Init");
+    console.log('On Init');
     this.courses = [
       new CourseClass(1, 'Video Course 1', 81, 'Webpack, Angular, Typescript', new Date()),
       new CourseClass(2, 'Video Course 2', 32, 'Observables, RxJs', new Date()),
@@ -38,6 +38,6 @@ export class CourseComponent implements OnInit, OnChanges, AfterContentInit, OnD
   }
 
   public onLoadMore(): void {
-    console.log('load more')
+    console.log('load more');
   }
 }
