@@ -1,5 +1,4 @@
-<a [routerLink]="['/courses', course.id]">
-<mat-card>
+<mat-card (click)=goToCourse(course.id)>
     <div class="course">
         <div class="course_date">
             {{course.creationDate | date}}
@@ -14,9 +13,8 @@
                 {{getCourseDuration(course.duration)}}
         </div>
         <div class="course_controls">
-                <button mat-raised-button (click)="onEdit()">Edit</button>
-                <button mat-raised-button color="warn" (click)="onDelete(course.id)">Delete</button>
+                <button mat-raised-button (click)="onEdit($event)">Edit</button>
+                <button mat-raised-button color="warn" (click)="onDelete($event,course.id)">Delete</button>
         </div>
     </div>
 </mat-card>
-</a>

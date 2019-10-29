@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Course } from '../models/models';
+import { Router } from '@angular/router';
+import { CourseClass } from '../models/course.models';
 
 const HOUR_MINUTES = 60;
 
@@ -9,10 +10,10 @@ const HOUR_MINUTES = 60;
   styleUrls: ['./course-item.component.scss']
 })
 export class CourseItemComponent implements OnInit {
-  @Input() course: Course;
+  @Input() course: CourseClass;
   @Output() deleteCourse: EventEmitter<number> = new EventEmitter();
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -25,12 +26,17 @@ export class CourseItemComponent implements OnInit {
     }
   }
 
-  public onEdit(): void {
+  public onEdit(event: Event): void {
+    event.stopPropagation();
     console.log('Edit clicked');
   }
 
-  public onDelete(courseId: number): void {
+  public onDelete(event: Event, courseId: number): void {
+    event.stopPropagation();
     this.deleteCourse.emit(courseId);
   }
 
+  public goToCourse(id: number): void {
+    this.router.navigate((['/courses', id]));
+  }
 }

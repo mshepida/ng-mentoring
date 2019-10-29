@@ -1,5 +1,5 @@
 import { Component, OnInit, OnChanges, AfterContentInit, OnDestroy } from '@angular/core';
-import { Course, CourseClass } from './models/models';
+import { CourseClass } from './models/course.models';
 
 @Component({
   selector: 'app-course',
@@ -7,7 +7,7 @@ import { Course, CourseClass } from './models/models';
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
-  public courses: Course[];
+  public courses: CourseClass[];
 
   constructor() {}
 

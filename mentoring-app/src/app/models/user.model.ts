@@ -1,10 +1,9 @@
-  export interface User {
+  export interface UserModel {
     id: number;
     firstName: string;
     lastName: string;
   }
-
-  export class UserClass implements User {
+  export class User implements UserModel {
     constructor(
       public id: number,
       public firstName: string,
