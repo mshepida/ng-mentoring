@@ -1,0 +1,20 @@
+.search {
+    padding: 20px 16px;
+    display: flex;
+    justify-content: center;
+
+    &_input {
+        width: 400px;
+    }
+
+    &_button {
+        margin-left: 20px;
+    }
+}
+
+.add-course {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 16px;
+    margin-bottom: 20px;
+}

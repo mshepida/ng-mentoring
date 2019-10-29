@@ -1,0 +1,15 @@
+.courses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 100px;
+
+    app-course-item {
+        margin: 10px 0;
+    }
+
+    .load-more-btn {
+        margin-top: 20px;
+    }
+}

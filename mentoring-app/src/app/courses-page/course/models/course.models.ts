@@ -1,4 +1,4 @@
-export interface Course {
+export interface CourseModel {
     id: number;
     title: string;
     creationDate: Date;
@@ -6,7 +6,7 @@ export interface Course {
     description: string;
   }
 
-export class CourseClass implements Course {
+export class CourseClass implements CourseModel {
     constructor(
         public id: number,
         public title: string,
