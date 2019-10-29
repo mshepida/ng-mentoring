@@ -13,7 +13,7 @@ export class SectionComponent implements OnInit {
   ngOnInit() {
   }
 
-  onFindClick(): void {
+  public onFindClick(): void {
     console.log(this.searchInput);
   }
 
