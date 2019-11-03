@@ -31,6 +31,6 @@ describe('FooterComponent', () => {
     const footerElement: HTMLElement = footerbDe.nativeElement
       .querySelector('.footer_text');
 
-      expect(footerElement.textContent).toEqual('© Videocourses. All right reserved');
+      expect(footerElement.textContent.trim()).toEqual('© Videocourses. All right reserved');
   })
 });
