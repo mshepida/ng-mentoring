@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -36,8 +37,8 @@ describe('HeaderComponent', () => {
 
   it('should have logo defined', () => {
     const LogoDe: DebugElement = fixture.debugElement;
-    const LogoElement: HTMLElement = LogoDe.nativeElement.querySelector('img');
-    
+    const imgDe = LogoDe.query(By.css('img'));
+    const LogoElement: HTMLElement = imgDe.nativeElement;
     expect(LogoElement).toBeTruthy();
-  })
+  });
 });

@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FooterComponent } from './footer.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -28,9 +29,9 @@ describe('FooterComponent', () => {
 
   it('should have default footer text', () => {
     const footerbDe: DebugElement = fixture.debugElement;
-    const footerElement: HTMLElement = footerbDe.nativeElement
-      .querySelector('.footer_text');
+    const footerTextDe = footerbDe.query(By.css('.footer_text'));
+    const footerElement: HTMLElement = footerTextDe.nativeElement;
 
-      expect(footerElement.textContent.trim()).toEqual('© Videocourses. All right reserved');
-  })
+    expect(footerElement.textContent.trim()).toEqual('© Videocourses. All right reserved');
+  });
 });

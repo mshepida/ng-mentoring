@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { CourseClass } from '../models/course.models';
 import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -32,7 +33,7 @@ describe('CourseItemComponent', () => {
       duration: 50,
       description: 'test',
       creationDate: new Date()
-    }
+    };
     component.course = testCourse;
     fixture.detectChanges();
   });
@@ -46,8 +47,8 @@ describe('CourseItemComponent', () => {
 
     const mockEvent: any = {
       type: 'click',
-      stopPropagation: function () {},
-      preventDefault: function () {}
+      stopPropagation() {},
+      preventDefault() {}
     };
 
     component.onDelete(mockEvent, 1);
@@ -61,9 +62,12 @@ describe('CourseItemComponent', () => {
 
   it('should display course information', () => {
     const courseDe: DebugElement = fixture.debugElement;
-    const titleEl: HTMLElement = courseDe.nativeElement.querySelector('.course_title');
-    const descriptionEl: HTMLElement = courseDe.nativeElement.querySelector('.course_description');
-    const durationEl: HTMLElement = courseDe.nativeElement.querySelector('.course_duration');
+    const titleDe = fixture.debugElement.query(By.css('.course_title'));
+    const titleEl: HTMLElement = titleDe.nativeElement;
+    const descriptionDe = courseDe.query(By.css('.course_description'));
+    const descriptionEl: HTMLElement = descriptionDe.nativeElement;
+    const durationDe = courseDe.query(By.css('.course_duration'));
+    const durationEl: HTMLElement = durationDe.nativeElement;
 
     expect(titleEl.textContent.trim()).toBe(component.course.title);
     expect(descriptionEl.textContent.trim()).toBe(component.course.description);
@@ -74,5 +78,5 @@ describe('CourseItemComponent', () => {
     component.goToCourse(1);
 
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/courses', 1 ]);
-  })
+  });
 });
