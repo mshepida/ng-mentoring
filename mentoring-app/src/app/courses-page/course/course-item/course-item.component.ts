@@ -2,8 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseClass } from '../models/course.models';
 
-const HOUR_MINUTES = 60;
-
 @Component({
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
@@ -16,14 +14,6 @@ export class CourseItemComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-  }
-
-  public getCourseDuration(duration: number): string {
-    if (duration >= HOUR_MINUTES) {
-      return `${Math.floor(duration / HOUR_MINUTES)}hr ${duration % HOUR_MINUTES}min`;
-    } else {
-      return `${duration}min`;
-    }
   }
 
   public onEdit(event: Event): void {

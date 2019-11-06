@@ -14,10 +14,10 @@ export class CourseComponent implements OnInit, OnChanges, AfterContentInit, OnD
   ngOnInit() {
     console.log('On Init');
     this.courses = [
-      new CourseClass(1, 'Video Course 1', 81, 'Webpack, Angular, Typescript', new Date()),
-      new CourseClass(2, 'Video Course 2', 32, 'Observables, RxJs', new Date()),
-      new CourseClass(3, 'Video Course 3', 133, 'Design Patterns', new Date()),
-      new CourseClass(4, 'Video Course 4', 58, 'State Management, ngrx/store', new Date())
+      new CourseClass(1, 'Video Course 1', 81, 'Webpack, Angular, Typescript', new Date(2019, 8, 25)),
+      new CourseClass(2, 'Video Course 2', 32, 'Observables, RxJs', new Date(2019, 10, 2), true),
+      new CourseClass(3, 'Video Course 3', 133, 'Design Patterns', new Date(2019, 9, 8)),
+      new CourseClass(4, 'Video Course 4', 58, 'State Management, ngrx/store', new Date(2019, 11, 15))
     ];
   }
 
