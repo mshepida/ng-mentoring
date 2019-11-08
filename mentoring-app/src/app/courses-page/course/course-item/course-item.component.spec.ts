@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { CourseClass } from '../models/course.models';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { DurationPipe } from '../../pipes/durationPipe/duration.pipe';
+import { HighlightByDateDirective } from '../../highlightDirective/highlight-by-date.directive';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -15,7 +17,11 @@ describe('CourseItemComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [ MatCardModule ],
-      declarations: [ CourseItemComponent ],
+      declarations: [
+        CourseItemComponent,
+        HighlightByDateDirective,
+        DurationPipe
+      ],
       providers: [
         { provide: Router, useValue: routerSpy }
       ]
@@ -56,10 +62,6 @@ describe('CourseItemComponent', () => {
     expect(component.deleteCourse.emit).toHaveBeenCalledWith(1);
   });
 
-  it('should convert minutes that are more than 60 to hours', () => {
-    expect(component.getCourseDuration(70)).toEqual('1hr 10min');
-  });
-
   it('should display course information', () => {
     const courseDe: DebugElement = fixture.debugElement;
     const titleDe = fixture.debugElement.query(By.css('.course_title'));
@@ -69,7 +71,7 @@ describe('CourseItemComponent', () => {
     const durationDe = courseDe.query(By.css('.course_duration'));
     const durationEl: HTMLElement = durationDe.nativeElement;
 
-    expect(titleEl.textContent.trim()).toBe(component.course.title);
+    expect(titleEl.textContent.trim()).toBe(component.course.title.toUpperCase());
     expect(descriptionEl.textContent.trim()).toBe(component.course.description);
     expect(durationEl.textContent.trim()).toBe(component.course.duration + 'min');
   });
