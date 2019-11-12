@@ -3,7 +3,7 @@
         [ngClass]="{'top-rated': course?.topRated}">
     <div class="course">
         <div class="course_date">
-            {{course.creationDate | date}}
+            {{course.creationDate | date:'d  MMM, y'}}
         </div>
         <div class="course_title">
                 {{course.title | uppercase}}

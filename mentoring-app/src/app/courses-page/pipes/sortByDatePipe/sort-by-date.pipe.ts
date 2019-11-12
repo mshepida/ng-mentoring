@@ -6,7 +6,7 @@ import { CourseClass } from '../../course/models/course.models';
 })
 export class SortByDatePipe implements PipeTransform {
 
-  transform(courses: CourseClass[]): any {
+  transform(courses: CourseClass[]): CourseClass[] {
     return courses.sort((course1, course2) => course1.creationDate.getTime() - course2.creationDate.getTime());
   }
 

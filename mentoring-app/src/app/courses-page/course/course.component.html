@@ -14,7 +14,7 @@
 </div>
 </div>
 <div class="courses">
-    <app-course-item *ngFor="let course of courses | sortByDate"
+    <app-course-item *ngFor="let course of coursesCopy | sortByDate"
                     [course]="course"
                     (deleteCourse)="handleDelete($event)"></app-course-item>
     <div class="no-data-message" *ngIf="!courses.length">
