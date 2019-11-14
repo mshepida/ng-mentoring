@@ -5,11 +5,15 @@ import { CourseDetailsComponent } from '../courses-page/course/course-details/co
 import { CourseItemComponent } from '../courses-page/course/course-item/course-item.component';
 import { CourseComponent } from '../courses-page/course/course.component';
 import { CoursesPageComponent } from './courses-page.component';
-import { SectionComponent } from '../section/section.component';
+import { SectionComponent } from './course/section/section.component';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { HighlightByDateDirective } from './highlightDirective/highlight-by-date.directive';
+import { DurationPipe } from './pipes/durationPipe/duration.pipe';
+import { SearchPipe } from './pipes/searchPipe/search.pipe';
+import { SortByDatePipe } from './pipes/sortByDatePipe/sort-by-date.pipe';
 
 const courseRoutes: Routes = [
   {
@@ -28,7 +32,11 @@ const courseRoutes: Routes = [
     CoursesPageComponent,
     CourseItemComponent,
     CourseComponent,
-    SectionComponent
+    SectionComponent,
+    HighlightByDateDirective,
+    DurationPipe,
+    SearchPipe,
+    SortByDatePipe
   ],
   imports: [
     CommonModule,
