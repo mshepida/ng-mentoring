@@ -14,6 +14,7 @@ import { HighlightByDateDirective } from './highlightDirective/highlight-by-date
 import { DurationPipe } from './pipes/durationPipe/duration.pipe';
 import { SearchPipe } from './pipes/searchPipe/search.pipe';
 import { SortByDatePipe } from './pipes/sortByDatePipe/sort-by-date.pipe';
+import { CoursesService } from './course/services/courses.service';
 
 const courseRoutes: Routes = [
   {
@@ -45,6 +46,7 @@ const courseRoutes: Routes = [
     FormsModule,
     MatButtonModule,
     MatInputModule
-  ]
+  ],
+  providers: [CoursesService]
 })
 export class CoursesPageModule { }

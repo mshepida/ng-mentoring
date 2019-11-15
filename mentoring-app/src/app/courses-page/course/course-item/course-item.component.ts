@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CourseClass } from '../models/course.models';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
   selector: 'app-course-item',
@@ -11,7 +12,9 @@ export class CourseItemComponent implements OnInit {
   @Input() course: CourseClass;
   @Output() deleteCourse: EventEmitter<number> = new EventEmitter();
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private courseService: CoursesService) { }
 
   ngOnInit() {
   }
