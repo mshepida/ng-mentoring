@@ -4,6 +4,14 @@ import { HeaderComponent } from './header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { AuthService } from '../services/auth.service';
+
+class MockAuthService {
+ public authenticationState = false;
+  isAuthenticated(): boolean {
+    return this.authenticationState;
+  }
+}
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -12,7 +20,8 @@ describe('HeaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatToolbarModule],
-      declarations: [ HeaderComponent ]
+      declarations: [ HeaderComponent ],
+      providers: [ {provide: AuthService, useClass: MockAuthService } ]
     })
     .compileComponents();
   }));
@@ -27,12 +36,11 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have 2 buttons', () => {
+  it('should have only login  button if not authenticated', () => {
     const ButtonsDe: DebugElement = fixture.debugElement;
-    const ButtonsElement: HTMLElement = ButtonsDe.nativeElement.querySelectorAll('button');
+    const ButtonsElement: HTMLElement = ButtonsDe.nativeElement.querySelector('button');
 
-    expect(ButtonsElement[0].textContent).toEqual('Log in');
-    expect(ButtonsElement[1].textContent).toEqual('Log off');
+    expect(ButtonsElement.textContent).toEqual('Log in');
   });
 
   it('should have logo defined', () => {

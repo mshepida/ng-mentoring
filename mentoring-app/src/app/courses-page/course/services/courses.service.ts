@@ -26,11 +26,15 @@ export class CoursesService {
     return this.courses.find((course: CourseClass) => course.id === id );
   }
 
-  // public updateCourse(course: CourseClass): CourseClass[] {
-
-  // }
+  public updateCourse(course: CourseClass): void {
+    this.deleteCourse(course.id);
+    this.courses = [
+      ...this.courses,
+      course
+    ];
+  }
 
   public deleteCourse(id: number): void {
-    this.courses.splice(this.courses.findIndex((course: CourseClass) =>  course.id === id), 1)
+    this.courses.splice(this.courses.findIndex((course: CourseClass) =>  course.id === id), 1);
   }
 }

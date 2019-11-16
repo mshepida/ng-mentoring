@@ -10,13 +10,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { CoursesPageModule } from './courses-page/courses-page.module';
 import { MatButtonModule } from '@angular/material/button';
+import { LoginModule } from './login-page/login.module';
 
 const routes: Routes = [
   {
       path: '',
       redirectTo: '/courses',
       pathMatch: 'full'
-  },
+  }
 ];
 
 @NgModule({
@@ -24,13 +25,14 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     BreadcrumbsComponent,
-    FooterComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     CoursesPageModule,
+    LoginModule,
     MatButtonModule,
     RouterModule.forRoot(routes)
   ],
