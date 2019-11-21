@@ -34,7 +34,7 @@ export class CourseComponent implements OnInit {
   }
 
   public onFindClick(): void {
-  const courses = this.coursesService.getCourses()
+  const courses = this.coursesService.getCourses();
   this.courses = this.searchPipe.transform(courses, this.searchInput);
   console.log(this.searchInput);
   }

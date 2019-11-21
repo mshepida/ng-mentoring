@@ -23,7 +23,7 @@ export class CoursesService {
     this.courses = [
       ...this.courses,
       course
-    ]
+    ];
   }
 
   public getCourse(id: number): CourseClass {
