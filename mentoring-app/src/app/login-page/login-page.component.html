@@ -1,0 +1,19 @@
+<mat-card>
+    <div class="login">
+        <div class="login_sign">
+            Login
+        </div>
+        <div class="login_form">
+            <mat-form-field class="login_username">
+                    <input #username matInput placeholder="Username" name="username">
+            </mat-form-field>
+            <mat-form-field class="login_pass">
+                    <input #password matInput type="password" placeholder="Password" name="password">
+            </mat-form-field>
+            <div class="login_buttons">
+                    <button mat-button>forgot password?</button>
+                    <button mat-raised-button (click)="onLogin()">Log In</button>
+            </div>
+        </div>
+    </div>
+</mat-card>

@@ -5,7 +5,7 @@
 </header>
 
 <main class="main-content">
-    <div class="breadctumbs">
+    <div *ngIf="authService.isAuthenticated()" class="breadctumbs">
         <app-breadcrumbs></app-breadcrumbs>
     </div>
     <router-outlet></router-outlet>

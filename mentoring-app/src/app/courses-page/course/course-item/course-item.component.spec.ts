@@ -8,6 +8,7 @@ import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DurationPipe } from '../../pipes/durationPipe/duration.pipe';
 import { HighlightByDateDirective } from '../../highlightDirective/highlight-by-date.directive';
+import { CoursesService } from '../services/courses.service';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -23,7 +24,8 @@ describe('CourseItemComponent', () => {
         DurationPipe
       ],
       providers: [
-        { provide: Router, useValue: routerSpy }
+        { provide: Router, useValue: routerSpy },
+        CoursesService
       ]
     })
     .compileComponents();
