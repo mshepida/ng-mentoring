@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, AfterContentInit, OnDestroy } from '@angular/core';
+
 import { CourseClass } from './models/course.models';
 import { SearchPipe } from '../pipes/searchPipe/search.pipe';
 import { CoursesService } from './services/courses.service';
@@ -7,9 +8,9 @@ import { CoursesService } from './services/courses.service';
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss'],
-  providers: [ SearchPipe ]
+  providers: [ SearchPipe, CoursesService ]
 })
-export class CourseComponent implements OnInit, OnChanges, AfterContentInit, OnDestroy {
+export class CourseComponent implements OnInit {
   public courses: CourseClass[];
   public searchInput: string;
 
@@ -21,21 +22,10 @@ export class CourseComponent implements OnInit, OnChanges, AfterContentInit, OnD
     this.courses = this.coursesService.getCourses();
   }
 
-  ngOnChanges() {
-    console.log('onChanges');
-  }
-
-  ngAfterContentInit() {
-    console.log('AfterContentInit');
-  }
-
-  ngOnDestroy() {
-    console.log('Destroy');
-  }
-
   public handleDelete(id: number): void {
     if (confirm('You really want to delete this course?')) {
       this.coursesService.deleteCourse(id);
+      this.courses = this.coursesService.getCourses();
     }
   }
 
@@ -44,7 +34,8 @@ export class CourseComponent implements OnInit, OnChanges, AfterContentInit, OnD
   }
 
   public onFindClick(): void {
-  this.courses = this.searchPipe.transform(this.coursesService.getCourses(), this.searchInput);
+  const courses = this.coursesService.getCourses()
+  this.courses = this.searchPipe.transform(courses, this.searchInput);
   console.log(this.searchInput);
   }
 }

@@ -3,7 +3,9 @@
         <img src="assets/images/courses-logo.png" alt="logo">
     </div>
     <div class="header__buttons">
-            <button *ngIf="!authService.isAuthenticated()" mat-button>Log in</button>
-            <button *ngIf="authService.isAuthenticated()" mat-button (click)="onLogout()">Log off</button>
+            <button *ngIf="!authService.isAuthenticated(); else logoffBtn" mat-button>Log in</button>
+            <ng-template #logoffBtn>
+                <button mat-button (click)="onLogout()">Log off</button>
+            </ng-template>
     </div>
 </mat-toolbar>

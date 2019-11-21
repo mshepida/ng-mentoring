@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { CourseClass } from '../models/course.models';
 
 @Injectable()
@@ -19,7 +20,10 @@ export class CoursesService {
   }
 
   public createCourse(course: CourseClass): void {
-    this.courses.push(course);
+    this.courses = [
+      ...this.courses,
+      course
+    ]
   }
 
   public getCourse(id: number): CourseClass {
@@ -35,6 +39,6 @@ export class CoursesService {
   }
 
   public deleteCourse(id: number): void {
-    this.courses.splice(this.courses.findIndex((course: CourseClass) =>  course.id === id), 1);
+    this.courses = this.courses.filter((course: CourseClass) => course.id !== id);
   }
 }

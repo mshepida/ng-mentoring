@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 import { CourseDetailsComponent } from '../courses-page/course/course-details/course-details.component';
 import { CourseItemComponent } from '../courses-page/course/course-item/course-item.component';
 import { CourseComponent } from '../courses-page/course/course.component';
 import { CoursesPageComponent } from './courses-page.component';
 import { SectionComponent } from './course/section/section.component';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { HighlightByDateDirective } from './highlightDirective/highlight-by-date.directive';
 import { DurationPipe } from './pipes/durationPipe/duration.pipe';
 import { SearchPipe } from './pipes/searchPipe/search.pipe';
 import { SortByDatePipe } from './pipes/sortByDatePipe/sort-by-date.pipe';
-import { CoursesService } from './course/services/courses.service';
 
 const courseRoutes: Routes = [
   {
@@ -46,7 +46,6 @@ const courseRoutes: Routes = [
     FormsModule,
     MatButtonModule,
     MatInputModule
-  ],
-  providers: [CoursesService]
+  ]
 })
 export class CoursesPageModule { }
