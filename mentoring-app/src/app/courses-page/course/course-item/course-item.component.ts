@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CourseClass } from '../models/course.models';
@@ -6,7 +6,8 @@ import { CourseClass } from '../models/course.models';
 @Component({
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
-  styleUrls: ['./course-item.component.scss']
+  styleUrls: ['./course-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseItemComponent implements OnInit {
   @Input() course: CourseClass;
@@ -18,9 +19,8 @@ export class CourseItemComponent implements OnInit {
   ngOnInit() {
   }
 
-  public onEdit(event: Event): void {
+  public onEdit(event: Event, id: number): void {
     event.stopPropagation();
-    console.log('Edit clicked');
   }
 
   public onDelete(event: Event, courseId: number): void {

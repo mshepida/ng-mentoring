@@ -1,20 +1,22 @@
-import { Component, OnInit, OnChanges, AfterContentInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CourseClass } from './models/course.models';
 import { SearchPipe } from '../pipes/searchPipe/search.pipe';
 import { CoursesService } from './services/courses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss'],
-  providers: [ SearchPipe, CoursesService ]
+  providers: [ SearchPipe ]
 })
 export class CourseComponent implements OnInit {
   public courses: CourseClass[];
   public searchInput: string;
 
   constructor(
+    private router: Router,
     private searchPipe: SearchPipe,
     private coursesService: CoursesService) {}
 
@@ -31,6 +33,10 @@ export class CourseComponent implements OnInit {
 
   public onLoadMore(): void {
     console.log('load more');
+  }
+
+  public onAddCourse(): void {
+    this.router.navigate((['/add']));
   }
 
   public onFindClick(): void {

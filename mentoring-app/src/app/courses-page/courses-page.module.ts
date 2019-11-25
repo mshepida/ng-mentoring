@@ -7,14 +7,18 @@ import { CourseDetailsComponent } from '../courses-page/course/course-details/co
 import { CourseItemComponent } from '../courses-page/course/course-item/course-item.component';
 import { CourseComponent } from '../courses-page/course/course.component';
 import { CoursesPageComponent } from './courses-page.component';
-import { SectionComponent } from './course/section/section.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { HighlightByDateDirective } from './highlightDirective/highlight-by-date.directive';
 import { DurationPipe } from './pipes/durationPipe/duration.pipe';
 import { SearchPipe } from './pipes/searchPipe/search.pipe';
 import { SortByDatePipe } from './pipes/sortByDatePipe/sort-by-date.pipe';
+import { AddCourseComponent } from './course/add-course/add-course.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CoursesService } from './course/services/courses.service';
+import { DurationComponent } from './course/add-course/duration/duration.component';
 
 const courseRoutes: Routes = [
   {
@@ -24,6 +28,10 @@ const courseRoutes: Routes = [
   {
     path: 'courses/:id',
     component: CourseDetailsComponent
+  },
+  {
+    path: 'add',
+    component: AddCourseComponent
   }
 ];
 
@@ -33,11 +41,12 @@ const courseRoutes: Routes = [
     CoursesPageComponent,
     CourseItemComponent,
     CourseComponent,
-    SectionComponent,
     HighlightByDateDirective,
     DurationPipe,
     SearchPipe,
-    SortByDatePipe
+    SortByDatePipe,
+    AddCourseComponent,
+    DurationComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +54,10 @@ const courseRoutes: Routes = [
     MatCardModule,
     FormsModule,
     MatButtonModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [CoursesService]
 })
 export class CoursesPageModule { }

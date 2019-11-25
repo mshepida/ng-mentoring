@@ -13,6 +13,11 @@ import { CoursesService } from '../services/courses.service';
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
   let fixture: ComponentFixture<CourseItemComponent>;
+  const mockEvent: any = {
+    type: 'click',
+    stopPropagation() {},
+    preventDefault() {}
+  };
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(async(() => {
@@ -52,12 +57,6 @@ describe('CourseItemComponent', () => {
 
   it('should emit delete event on delete', () => {
     spyOn(component.deleteCourse, 'emit');
-
-    const mockEvent: any = {
-      type: 'click',
-      stopPropagation() {},
-      preventDefault() {}
-    };
 
     component.onDelete(mockEvent, 1);
 

@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 })
 
 class TestComponent {
-  creationDate: Date =  new Date(2019, 10, 7);
+  creationDate: Date =  new Date(2019, 10, 20);
 }
 
 describe('HighlightByDateDirective', () => {
