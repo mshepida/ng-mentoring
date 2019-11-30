@@ -16,7 +16,7 @@
                 {{course.duration | duration}}
         </div>
         <div class="course_controls">
-                <button mat-raised-button (click)="onEdit($event)">Edit</button>
+                <button mat-raised-button (click)="onEdit($event, course.id)">Edit</button>
                 <button mat-raised-button color="warn" (click)="onDelete($event,course.id)">Delete</button>
         </div>
     </div>

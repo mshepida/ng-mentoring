@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { CourseClass } from '../models/course.models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CoursesService {
 
  private courses = [
@@ -34,10 +36,14 @@ export class CoursesService {
 
   public updateCourse(course: CourseClass): void {
     this.deleteCourse(course.id);
-    this.courses = [
+    const courseList = [
       ...this.courses,
-      course
+      {
+        ...this.courses[course.id - 1],
+        ...course
+      }
     ];
+    this.courses = courseList;
   }
 
   public deleteCourse(id: number): void {

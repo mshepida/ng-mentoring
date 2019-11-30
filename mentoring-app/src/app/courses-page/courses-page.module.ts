@@ -17,21 +17,25 @@ import { SearchPipe } from './pipes/searchPipe/search.pipe';
 import { SortByDatePipe } from './pipes/sortByDatePipe/sort-by-date.pipe';
 import { AddCourseComponent } from './course/add-course/add-course.component';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CoursesService } from './course/services/courses.service';
 import { DurationComponent } from './course/add-course/duration/duration.component';
+import { EditCourseComponent } from './course/edit-course/edit-course.component';
+import { AuthGuardGuard } from '../guards/auth-guard.guard';
 
 const courseRoutes: Routes = [
   {
     path: 'courses',
     component: CoursesPageComponent,
+    canActivate: [AuthGuardGuard],
+  },
+  {
+    path: 'courses/new',
+    component: AddCourseComponent,
+    canActivate: [AuthGuardGuard]
   },
   {
     path: 'courses/:id',
-    component: CourseDetailsComponent
-  },
-  {
-    path: 'add',
-    component: AddCourseComponent
+    component: EditCourseComponent,
+    canActivate: [AuthGuardGuard]
   }
 ];
 
@@ -46,7 +50,8 @@ const courseRoutes: Routes = [
     SearchPipe,
     SortByDatePipe,
     AddCourseComponent,
-    DurationComponent
+    DurationComponent,
+    EditCourseComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +62,6 @@ const courseRoutes: Routes = [
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule
-  ],
-  providers: [CoursesService]
+  ]
 })
 export class CoursesPageModule { }

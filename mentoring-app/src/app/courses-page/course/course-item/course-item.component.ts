@@ -21,6 +21,7 @@ export class CourseItemComponent implements OnInit {
 
   public onEdit(event: Event, id: number): void {
     event.stopPropagation();
+    this.router.navigate((['/courses', id]));
   }
 
   public onDelete(event: Event, courseId: number): void {
