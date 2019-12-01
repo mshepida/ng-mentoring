@@ -24,6 +24,8 @@ export class CoursesService {
       ...this.courses,
       course
     ];
+
+    console.log(this.courses);
   }
 
   public getCourse(id: number): CourseClass {
