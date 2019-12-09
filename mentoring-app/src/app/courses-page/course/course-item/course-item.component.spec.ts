@@ -42,10 +42,17 @@ describe('CourseItemComponent', () => {
 
     const testCourse: CourseClass = {
       id: 1,
-      title: 'Test Course',
-      duration: 50,
+      name: 'Test Course',
+      length: 50,
       description: 'test',
-      creationDate: new Date()
+      date: "2016-03-18T06:36:07+00:00",
+      authors: [
+        {
+          id: 5524,
+          name: "Cobb",
+          lastName: "Hudson"
+        }
+      ],
     };
     component.course = testCourse;
     fixture.detectChanges();
@@ -72,9 +79,9 @@ describe('CourseItemComponent', () => {
     const durationDe = courseDe.query(By.css('.course_duration'));
     const durationEl: HTMLElement = durationDe.nativeElement;
 
-    expect(titleEl.textContent.trim()).toBe(component.course.title.toUpperCase());
+    expect(titleEl.textContent.trim()).toBe(component.course.name.toUpperCase());
     expect(descriptionEl.textContent.trim()).toBe(component.course.description);
-    expect(durationEl.textContent.trim()).toBe(component.course.duration + 'min');
+    expect(durationEl.textContent.trim()).toBe(component.course.length + 'min');
   });
 
   it('should navigate to course page', () => {

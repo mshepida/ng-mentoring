@@ -2,33 +2,36 @@ import { Injectable } from '@angular/core';
 
 import { LoginData } from '../models/user.model';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private BASE_URL = 'http://localhost:3004';
 
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, private http: HttpClient) { }
 
   public login(userData: LoginData): void {
-    localStorage.setItem('User', JSON.stringify(userData));
-    this.router.navigate((['/courses']));
+    this.http.post(`${this.BASE_URL}/auth/login`, userData).subscribe((JWTToken: {token: string}) => {
+      if (JWTToken.token) {
+        localStorage.setItem('JWTToken', JSON.stringify(JWTToken.token));
+        this.router.navigate((['/courses']));
+      }
+    })
   }
 
   public logout(): void {
-    localStorage.removeItem('User');
+    localStorage.removeItem('JWTToken');
     this.router.navigate((['/login']));
   }
 
   public isAuthenticated(): boolean {
-    return localStorage.getItem('User') !== null;
+    return localStorage.getItem('JWTToken') !== null;
   }
 
   public getUserInfo(): string {
     return JSON.parse(localStorage.getItem('User')).username;
-  }
-
-  public generateToken(): string {
-    return Math.random().toString(36).substr(2);
   }
 }

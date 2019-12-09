@@ -1,7 +1,20 @@
 .breadcrumb {
     background: #f5f3f3;
 
-    &_section {
+    &_main {
         font-size: 16px;
+        text-decoration: none;
+        color: blue;
+    }
+
+    &_course {
+        font-size: 16px;
+        margin-left: 15px;
+
+        &::before{
+            content: '>';
+            position: relative;
+            right: 8px;
+        }
     }
 }

@@ -3,17 +3,17 @@
         [ngClass]="{'top-rated': course?.topRated}">
     <div class="course">
         <div class="course_date">
-            {{course.creationDate | date:'d  MMM, y'}}
+            {{course.date | date:'d  MMM, y'}}
         </div>
         <div class="course_title">
-                {{course.title | uppercase}}
+                {{course.name | uppercase}}
                 <img *ngIf="course.topRated" src="assets/images/star.png" alt="top rated">
         </div>
         <div class="course_description">
             {{course.description}}
         </div>
         <div class="course_duration">
-                {{course.duration | duration}}
+                {{course.length | duration}}
         </div>
         <div class="course_controls">
                 <button mat-raised-button (click)="onEdit($event, course.id)">Edit</button>

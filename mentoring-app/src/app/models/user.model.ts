@@ -4,9 +4,8 @@
     lastName: string;
   }
   export interface LoginData {
-    username: string;
+    login: string;
     password: string;
-    token: string;
   }
   export class User implements UserModel {
     constructor(

@@ -1,3 +1,4 @@
 <mat-toolbar class="breadcrubm">
-    <span class="breadcrumb_section">Courses</span>
+    <a class="breadcrumb_main" [routerLink]="['/courses']">Courses</a>
+    <span class="breadcrumb_course" *ngIf="currentCourseName">{{currentCourseName}}</span>
 </mat-toolbar>

@@ -1,25 +1,59 @@
 import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 import { CoursesService } from './courses.service';
-import { CourseClass } from '../models/course.models';
-
 
 describe('CoursesService', () => {
   let service: CoursesService;
-  let courses: CourseClass[];
+  let courses = of([
+    {
+      id: 8693,
+      name: 'duis mollit reprehenderit ad',
+      description: 'Est minim ea aute sunt laborum minim eu excepteur. Culpa sint exercitation mollit enim ad culpa aliquip laborum cillum. Dolor officia culpa labore ex eiusmod ut est ea voluptate ea nostrud.',
+      isTopRated: false,
+      date: '2017-09-28T04:39:24+00:00',
+      authors: [
+        {
+          id: 1370,
+          name: 'Polly',
+          lastName: 'Sosa'
+        }
+      ],
+      length: 157
+    },
+    {
+      id: 4980,
+      name: 'magna excepteur aute deserunt',
+      description: 'Sunt culpa officia minim commodo eiusmod irure sunt nostrud. Mollit aliquip id occaecat officia proident anim dolor officia qui voluptate consectetur laborum. Duis incididunt culpa aliqua mollit do fugiat ea dolor mollit irure Lorem tempor.',
+      isTopRated: false,
+      date: '2016-05-31T02:02:36+00:00',
+      authors: [
+        {
+          id: 8413,
+          name: 'Greta',
+          lastName: 'Richardson'
+        },
+        {
+          id: 7458,
+          name: 'Deana',
+          lastName: 'Bruce'
+        },
+        {
+          id: 5508,
+          name: 'Patsy',
+          lastName: 'Bright'
+        }
+      ],
+      length: 207
+    }
+  ])
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CoursesService]
+      providers: [CoursesService, HttpClient, HttpHandler]
     });
     service = TestBed.get(CoursesService);
-
-    courses = [
-      new CourseClass(1, 'Angular Course', 81, 'Webpack, Angular, Typescript', new Date(2019, 8, 25)),
-      new CourseClass(2, 'RxJs course', 32, 'Observables, RxJs', new Date(2019, 10, 2), true),
-      new CourseClass(3, 'Patterns Course', 133, 'Design Patterns', new Date(2019, 9, 8)),
-      new CourseClass(4, 'Ngrx course', 58, 'State Management, ngrx/store', new Date(2019, 11, 15))
-    ];
   }
   );
 
@@ -28,48 +62,34 @@ describe('CoursesService', () => {
   });
 
   it('should return course list', () => {
-    expect(service.getCourses()).toEqual(courses);
+    const spy = spyOn(service, 'getCourses').and.returnValue(courses)
+    expect(service.getCourses('2')).toEqual(courses);
   });
 
   it('should return specific course', () => {
+    const spy = spyOn(service, 'getCourse').and.returnValue(courses[0])
     expect(service.getCourse(1)).toEqual(courses[0]);
   });
 
   it('should add new course', () => {
-    const newCourse = new CourseClass(5, 'Webpack', 58, 'webpack', new Date(2019, 11, 15));
-    service.createCourse(newCourse);
+    const newCourse = {
+      id: 1,
+      name: 'test',
+      description: 'lpa aliquip laborum cillum. t ea voluptate ea nostrud.',
+      isTopRated: false,
+      date: '2017-09-28T04:39:24+00:00',
+      authors: [
+        {
+          id: 10,
+          name: 'Test',
+          lastName: 'Sosa'
+        }
+      ],
+      length: 157
+    }
 
-    expect(service.getCourse(5)).toEqual(newCourse);
-  });
-
-  it('should remove course', () => {
-    const coursesList = [
-      new CourseClass(1, 'Angular Course', 81, 'Webpack, Angular, Typescript', new Date(2019, 8, 25)),
-      new CourseClass(3, 'Patterns Course', 133, 'Design Patterns', new Date(2019, 9, 8)),
-      new CourseClass(4, 'Ngrx course', 58, 'State Management, ngrx/store', new Date(2019, 11, 15))
-    ];
-    service.deleteCourse(2);
-
-    expect(service.getCourses()).toEqual(coursesList);
-  });
-
-  it('should update course', () => {
-    const coursesList = [
-      new CourseClass(1, 'Angular Course', 81, 'Webpack, Angular, Typescript', new Date(2019, 8, 25)),
-      new CourseClass(2, 'RxJs course', 32, 'Observables, RxJs', new Date(2019, 10, 2), true),
-      new CourseClass(3, 'Patterns Course', 133, 'Design Patterns', new Date(2019, 9, 8)),
-      {
-        id: 4,
-        title: 'test',
-        duration: 58,
-        description: 'State Management, ngrx/store',
-        creationDate: new Date(2019, 11, 15),
-        topRated: false
-      }
-    ];
-
-    service.updateCourse(new CourseClass(4, 'test', 58, 'State Management, ngrx/store', new Date(2019, 11, 15), false));
-
-    expect(service.getCourses()).toEqual(coursesList);
+    service.createCourse(newCourse).subscribe(course => {
+      expect(course).toEqual(newCourse);
+    });
   });
 });

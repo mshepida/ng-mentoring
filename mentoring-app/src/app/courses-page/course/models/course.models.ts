@@ -1,19 +1,27 @@
 export interface CourseModel {
     id: number;
-    title: string;
-    creationDate: Date;
-    duration: number;
+    name: string;
+    date: string;
+    length: number;
     description: string;
-    topRated?: boolean;
+    authors: Author[];
+    isTopRated?: boolean;
   }
+
+  export interface Author {
+    id: number;
+    name: string;
+    lastName: string;
+}
 
 export class CourseClass implements CourseModel {
     constructor(
         public id: number,
-        public title: string,
-        public duration: number,
+        public name: string,
+        public length: number,
         public description: string,
-        public creationDate: Date,
-        public topRated?: boolean
+        public date: string,
+        public authors: Author[],
+        public isTopRated?: boolean
     ) {}
   }
