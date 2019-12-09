@@ -11,12 +11,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoursesPageModule } from './courses-page/courses-page.module';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginModule } from './login-page/login.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
       path: '',
       redirectTo: '/courses',
-      pathMatch: 'full'
+      pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
   }
 ];
 
@@ -25,7 +30,8 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     BreadcrumbsComponent,
-    FooterComponent
+    FooterComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

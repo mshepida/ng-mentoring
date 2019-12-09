@@ -42,6 +42,6 @@ describe('CourseComponent', () => {
   it('should navigate to add course page', () => {
     component.onAddCourse();
 
-    expect(routerSpy.navigate).toHaveBeenCalledWith(['/add']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/courses/new']);
   });
 });

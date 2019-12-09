@@ -1,4 +1,4 @@
 <mat-form-field>
-    <input matInput type="number" placeholder="Duration" name="duration" [(ngModel)]="durationValue" (change)="onValueChange()">
+    <input matInput type="number" placeholder="Duration" name="duration" [(ngModel)]="currentDuration" (change)="onValueChange()">
 </mat-form-field>
-<span class="duration">{{durationValue | duration }}</span>
+<span class="duration">{{currentDuration | duration }}</span>

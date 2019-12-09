@@ -58,9 +58,17 @@ describe('CoursesService', () => {
       new CourseClass(1, 'Angular Course', 81, 'Webpack, Angular, Typescript', new Date(2019, 8, 25)),
       new CourseClass(2, 'RxJs course', 32, 'Observables, RxJs', new Date(2019, 10, 2), true),
       new CourseClass(3, 'Patterns Course', 133, 'Design Patterns', new Date(2019, 9, 8)),
-      new CourseClass(4, 'test', 58, 'State Management, ngrx/store', new Date(2019, 11, 15))
+      {
+        id: 4,
+        title: 'test',
+        duration: 58,
+        description: 'State Management, ngrx/store',
+        creationDate: new Date(2019, 11, 15),
+        topRated: false
+      }
     ];
-    service.updateCourse(new CourseClass(4, 'test', 58, 'State Management, ngrx/store', new Date(2019, 11, 15)));
+
+    service.updateCourse(new CourseClass(4, 'test', 58, 'State Management, ngrx/store', new Date(2019, 11, 15), false));
 
     expect(service.getCourses()).toEqual(coursesList);
   });
