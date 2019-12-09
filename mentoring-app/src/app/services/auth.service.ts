@@ -31,7 +31,7 @@ export class AuthService {
     return localStorage.getItem('JWTToken') !== null;
   }
 
-  public getUserInfo(): string {
-    return JSON.parse(localStorage.getItem('User')).username;
+  public getToken(): string {
+    return localStorage.getItem('JWTToken');
   }
 }
