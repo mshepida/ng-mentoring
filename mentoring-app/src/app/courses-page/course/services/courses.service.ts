@@ -23,15 +23,15 @@ export class CoursesService {
   }
 
   public getCoursesWithParams(params: {textFragment: string}): Observable<CourseClass[]> {
-    return this.http.get<CourseClass[]>(`${this.BASE_URL}`, {params})
+    return this.http.get<CourseClass[]>(`${this.BASE_URL}`, {params});
   }
 
   public createCourse(course: CourseClass): Observable<CourseClass> {
-    return this.http.post<CourseClass>(`${this.BASE_URL}`, course)
+    return this.http.post<CourseClass>(`${this.BASE_URL}`, course);
   }
 
   public getCourse(id: number): Observable<CourseClass> {
-    return this.http.get<CourseClass>(`${this.BASE_URL}/${id}`)
+    return this.http.get<CourseClass>(`${this.BASE_URL}/${id}`);
   }
 
   public updateCourse(course: CourseClass): Observable<CourseClass> {
@@ -39,6 +39,6 @@ export class CoursesService {
   }
 
   public deleteCourse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.BASE_URL}/${id}`)
+    return this.http.delete<void>(`${this.BASE_URL}/${id}`);
   }
 }

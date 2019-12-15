@@ -3,6 +3,11 @@
     justify-content: space-between;
     background: white;
 
+    &_user-info {
+        font-size: 14px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
     &_logo {
         img {
             width: 150px;

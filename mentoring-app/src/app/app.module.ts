@@ -14,6 +14,8 @@ import { LoginModule } from './login-page/login.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { SpinnerComponentComponent } from './spinner-component/spinner-component.component';
+import { SpinnerInterceptor } from './spinner-component/spinner.interceptor';
 
 const routes: Routes = [
   {
@@ -33,7 +35,8 @@ const routes: Routes = [
     HeaderComponent,
     BreadcrumbsComponent,
     FooterComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SpinnerComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,11 @@ const routes: Routes = [
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: SpinnerInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]

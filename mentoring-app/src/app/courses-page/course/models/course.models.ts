@@ -8,7 +8,7 @@ export interface CourseModel {
     isTopRated?: boolean;
   }
 
-  export interface Author {
+export interface Author {
     id: number;
     name: string;
     lastName: string;

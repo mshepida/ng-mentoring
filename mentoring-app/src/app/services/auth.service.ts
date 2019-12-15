@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { LoginData } from '../models/user.model';
+import { LoginData, User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
         localStorage.setItem('JWTToken', JSON.stringify(JWTToken.token));
         this.router.navigate((['/courses']));
       }
-    })
+    });
   }
 
   public logout(): void {
@@ -33,5 +34,9 @@ export class AuthService {
 
   public getToken(): string {
     return localStorage.getItem('JWTToken');
+  }
+
+  public fetchUserInfo(): Observable<object> {
+   return this.http.post(`${this.BASE_URL}/auth/userinfo`, {token: JSON.parse(this.getToken())});
   }
 }

@@ -1,19 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 
 import { CourseClass } from './models/course.models';
 import { CoursesService } from './services/courses.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, fromEvent } from 'rxjs';
+import { takeUntil, filter, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
-export class CourseComponent implements OnInit {
+export class CourseComponent implements OnInit, OnDestroy {
   public courses: Observable<CourseClass[]>;
+  public showSpinner = false;
+  private destroySourse$ = new Subject();
   public searchInput: string;
   private coursesAmount = '5';
+
+  @ViewChild('searchField', {static: false}) searchField: ElementRef;
 
   constructor(
     private router: Router,
@@ -30,7 +35,7 @@ export class CourseComponent implements OnInit {
   }
 
   public onLoadMore(): void {
-    this.coursesAmount = String(parseInt(this.coursesAmount) + 5);
+    this.coursesAmount = String(parseInt(this.coursesAmount, 10) + 5);
     this.courses = this.coursesService.getCourses(this.coursesAmount);
   }
 
@@ -38,7 +43,25 @@ export class CourseComponent implements OnInit {
     this.router.navigate((['/courses/new']));
   }
 
-  public onFindClick(): void {
+  public fetchCourses(): void {
   this.courses = this.coursesService.getCoursesWithParams({textFragment: this.searchInput});
   }
-}
+
+ public onType(): void {
+  fromEvent(this.searchField.nativeElement, 'keyup').pipe(
+    takeUntil(this.destroySourse$),
+    filter(() => Boolean(this.searchInput) && this.searchInput.length >= 3),
+    distinctUntilChanged(),
+    debounceTime(300)
+  ).subscribe(() => {
+    this.fetchCourses();
+    this.showSpinner = false;
+  },
+  err => console.log('HTTP Error', err));
+ }
+
+ ngOnDestroy() {
+   this.destroySourse$.next(1);
+   this.destroySourse$.complete();
+ }
+ }

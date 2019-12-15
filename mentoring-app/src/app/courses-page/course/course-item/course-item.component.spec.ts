@@ -45,12 +45,12 @@ describe('CourseItemComponent', () => {
       name: 'Test Course',
       length: 50,
       description: 'test',
-      date: "2016-03-18T06:36:07+00:00",
+      date: '2016-03-18T06:36:07+00:00',
       authors: [
         {
           id: 5524,
-          name: "Cobb",
-          lastName: "Hudson"
+          name: 'Cobb',
+          lastName: 'Hudson'
         }
       ],
     };

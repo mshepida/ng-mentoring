@@ -10,11 +10,10 @@ export class SortByDatePipe implements PipeTransform {
     if (courses) {
       return courses.sort((course1, course2) => {
         return (+new Date(course1.date)) - (+new Date(course2.date));
-      })
+      });
     } else {
-      return
+      return;
     }
-    
   }
 
 }

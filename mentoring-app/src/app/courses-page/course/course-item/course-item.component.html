@@ -1,13 +1,13 @@
 <mat-card (click)=goToCourse(course.id)
-        [appHighlightByDate]='course.creationDate'
-        [ngClass]="{'top-rated': course?.topRated}">
+        [appHighlightByDate]='course.date'
+        [ngClass]="{'top-rated': course?.isTopRated}">
     <div class="course">
         <div class="course_date">
             {{course.date | date:'d  MMM, y'}}
         </div>
         <div class="course_title">
                 {{course.name | uppercase}}
-                <img *ngIf="course.topRated" src="assets/images/star.png" alt="top rated">
+                <img *ngIf="course.isTopRated" src="assets/images/star.png" alt="top rated">
         </div>
         <div class="course_description">
             {{course.description}}

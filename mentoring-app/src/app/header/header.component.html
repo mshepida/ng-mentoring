@@ -2,7 +2,10 @@
     <div class="header_logo">
         <img src="assets/images/courses-logo.png" alt="logo">
     </div>
-    <div class="header__buttons">
+    <div class="header_user-info">
+        {{ userName }}
+    </div>
+    <div class="header_buttons">
             <button *ngIf="!authService.isAuthenticated(); else logoffBtn" mat-button>Log in</button>
             <ng-template #logoffBtn>
                 <button mat-button (click)="onLogout()">Log off</button>
