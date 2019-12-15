@@ -12,10 +12,12 @@ export class AddCourseComponent implements OnInit {
 
   courseInfo: CourseClass = {
     id: 0,
-    title: '',
-    duration: 0,
+    name: '',
+    length: 0,
     description: '',
-    creationDate: new Date()
+    authors: [],
+    date: '',
+    isTopRated: false
   };
 
   constructor(
@@ -26,7 +28,7 @@ export class AddCourseComponent implements OnInit {
   }
 
   public onAdd(): void {
-    this.coursesService.createCourse(this.courseInfo);
+    this.coursesService.createCourse(this.courseInfo).subscribe();
     this.router.navigate(['/courses']);
   }
 

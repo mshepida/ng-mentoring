@@ -13,13 +13,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { HighlightByDateDirective } from './highlightDirective/highlight-by-date.directive';
 import { DurationPipe } from './pipes/durationPipe/duration.pipe';
-import { SearchPipe } from './pipes/searchPipe/search.pipe';
 import { SortByDatePipe } from './pipes/sortByDatePipe/sort-by-date.pipe';
 import { AddCourseComponent } from './course/add-course/add-course.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DurationComponent } from './course/add-course/duration/duration.component';
 import { EditCourseComponent } from './course/edit-course/edit-course.component';
 import { AuthGuardGuard } from '../guards/auth-guard.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 const courseRoutes: Routes = [
   {
@@ -47,7 +47,6 @@ const courseRoutes: Routes = [
     CourseComponent,
     HighlightByDateDirective,
     DurationPipe,
-    SearchPipe,
     SortByDatePipe,
     AddCourseComponent,
     DurationComponent,
@@ -61,7 +60,8 @@ const courseRoutes: Routes = [
     MatButtonModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    HttpClientModule
   ]
 })
 export class CoursesPageModule { }

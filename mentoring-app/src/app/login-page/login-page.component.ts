@@ -19,9 +19,8 @@ export class LoginPageComponent implements OnInit {
 
   onLogin(): void {
     const loginInfo = {
-      username: this.username.nativeElement.value,
+      login: this.username.nativeElement.value,
       password: this.password.nativeElement.value,
-      token: this.authService.generateToken()
     };
     this.authService.login(loginInfo);
   }

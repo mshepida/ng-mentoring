@@ -14,11 +14,11 @@
 </div>
 </div>
 <div class="courses">
-    <app-course-item *ngFor="let course of courses | sortByDate"
+    <app-course-item *ngFor="let course of (courses | async | sortByDate)"
                     [course]="course"
                     (deleteCourse)="handleDelete($event)"></app-course-item>
-    <div class="no-data-message" *ngIf="!courses.length">
-        No data. Fell free to add new course
-    </div>
+        <div class="no-data-message" *ngIf="!(courses| async)">
+            No data. Fell free to add new course
+        </div>              
     <button class="load-more-btn" (click)="onLoadMore()" mat-stroked-button>Load more</button>
 </div>

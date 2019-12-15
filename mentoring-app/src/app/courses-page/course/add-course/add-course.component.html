@@ -5,17 +5,17 @@
     </div>
     <div class="add_form">
       <mat-form-field>
-        <input #title matInput placeholder="Title" name="title" [(ngModel)]="courseInfo.title">
+        <input #title matInput placeholder="Title" name="title" [(ngModel)]="courseInfo.name">
       </mat-form-field>
       <mat-form-field>
         <textarea #description matInput placeholder="Description" name="description" rows="3" [(ngModel)]="courseInfo.description"></textarea>
       </mat-form-field>
       <mat-form-field>
-        <input #creationDate matInput [matDatepicker]="picker" placeholder="Creation date" (dateInput)="courseInfo.creationDate=$event.value">
+        <input #creationDate matInput [matDatepicker]="picker" placeholder="Creation date" (dateInput)="courseInfo.date=$event.value">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <app-duration (valueChange)="courseInfo.duration = $event"></app-duration>
+      <app-duration (valueChange)="courseInfo.length = $event"></app-duration>
       <div class="add_buttons">
         <button mat-raised-button (click)="onCancel()">Cancel</button>
         <button mat-raised-button (click)="onAdd()">Add</button>

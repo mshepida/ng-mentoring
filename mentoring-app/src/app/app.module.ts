@@ -12,6 +12,8 @@ import { CoursesPageModule } from './courses-page/courses-page.module';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginModule } from './login-page/login.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 const routes: Routes = [
   {
@@ -42,7 +44,11 @@ const routes: Routes = [
     MatButtonModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,52 +1,44 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { CourseClass } from '../models/course.models';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoursesService {
+  private BASE_URL = 'http://localhost:3004/courses';
 
- private courses = [
-    new CourseClass(1, 'Angular Course', 81, 'Webpack, Angular, Typescript', new Date(2019, 8, 25)),
-    new CourseClass(2, 'RxJs course', 32, 'Observables, RxJs', new Date(2019, 10, 2), true),
-    new CourseClass(3, 'Patterns Course', 133, 'Design Patterns', new Date(2019, 9, 8)),
-    new CourseClass(4, 'Ngrx course', 58, 'State Management, ngrx/store', new Date(2019, 11, 15))
-  ];
-
-  constructor() {
+  constructor(private http: HttpClient) {
    }
 
-  public getCourses(): CourseClass[] {
-    return this.courses;
-  }
-
-  public createCourse(course: CourseClass): void {
-    this.courses = [
-      ...this.courses,
-      course
-    ];
-
-    console.log(this.courses);
-  }
-
-  public getCourse(id: number): CourseClass {
-    return this.courses.find((course: CourseClass) => course.id === id );
-  }
-
-  public updateCourse(course: CourseClass): void {
-    this.deleteCourse(course.id);
-    const courseList = [
-      ...this.courses,
-      {
-        ...this.courses[course.id - 1],
-        ...course
+  public getCourses(amount: string): Observable<CourseClass[]> {
+    return this.http.get<CourseClass[]>(`${this.BASE_URL}`, {
+      params: {
+        start: '0',
+        count: amount
       }
-    ];
-    this.courses = courseList;
+    });
   }
 
-  public deleteCourse(id: number): void {
-    this.courses = this.courses.filter((course: CourseClass) => course.id !== id);
+  public getCoursesWithParams(params: {textFragment: string}): Observable<CourseClass[]> {
+    return this.http.get<CourseClass[]>(`${this.BASE_URL}`, {params})
+  }
+
+  public createCourse(course: CourseClass): Observable<CourseClass> {
+    return this.http.post<CourseClass>(`${this.BASE_URL}`, course)
+  }
+
+  public getCourse(id: number): Observable<CourseClass> {
+    return this.http.get<CourseClass>(`${this.BASE_URL}/${id}`)
+  }
+
+  public updateCourse(course: CourseClass): Observable<CourseClass> {
+    return this.http.patch<CourseClass>(`${this.BASE_URL}`, course);
+  }
+
+  public deleteCourse(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.BASE_URL}/${id}`)
   }
 }

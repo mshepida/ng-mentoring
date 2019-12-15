@@ -4,15 +4,26 @@ import { BreadcrumbsComponent } from './breadcrumbs.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { CoursesService } from '../courses-page/course/services/courses.service';
+import { Router } from '@angular/router';
 
-describe('BreadcrumbsComponent', () => {
+const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
+fdescribe('BreadcrumbsComponent', () => {
   let component: BreadcrumbsComponent;
   let fixture: ComponentFixture<BreadcrumbsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MatToolbarModule],
-      declarations: [ BreadcrumbsComponent ]
+      declarations: [ BreadcrumbsComponent],
+      providers: [
+        CoursesService,
+        {
+          provide: Router,
+          useValue: routerSpy
+        }
+      ]
     })
     .compileComponents();
   }));

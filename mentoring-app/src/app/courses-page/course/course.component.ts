@@ -1,38 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CourseClass } from './models/course.models';
-import { SearchPipe } from '../pipes/searchPipe/search.pipe';
 import { CoursesService } from './services/courses.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
-  styleUrls: ['./course.component.scss'],
-  providers: [ SearchPipe ]
+  styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
-  public courses: CourseClass[];
+  public courses: Observable<CourseClass[]>;
   public searchInput: string;
+  private coursesAmount = '5';
 
   constructor(
     private router: Router,
-    private searchPipe: SearchPipe,
     private coursesService: CoursesService) {}
 
   ngOnInit() {
-    this.courses = this.coursesService.getCourses();
+    this.courses = this.coursesService.getCourses(this.coursesAmount);
   }
 
   public handleDelete(id: number): void {
     if (confirm('You really want to delete this course?')) {
-      this.coursesService.deleteCourse(id);
-      this.courses = this.coursesService.getCourses();
+      this.coursesService.deleteCourse(id).subscribe(() => this.courses = this.coursesService.getCourses('5'));
     }
   }
 
   public onLoadMore(): void {
-    console.log('load more');
+    this.coursesAmount = String(parseInt(this.coursesAmount) + 5);
+    this.courses = this.coursesService.getCourses(this.coursesAmount);
   }
 
   public onAddCourse(): void {
@@ -40,8 +39,6 @@ export class CourseComponent implements OnInit {
   }
 
   public onFindClick(): void {
-  const courses = this.coursesService.getCourses();
-  this.courses = this.searchPipe.transform(courses, this.searchInput);
-  console.log(this.searchInput);
+  this.courses = this.coursesService.getCoursesWithParams({textFragment: this.searchInput});
   }
 }
