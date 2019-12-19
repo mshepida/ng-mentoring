@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-
-import { LoginData, User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 import { Observable } from 'rxjs';
+
+import { LoginData } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,8 @@ export class AuthService {
 
   constructor(private router: Router, private http: HttpClient) { }
 
-  public login(userData: LoginData): void {
-    this.http.post(`${this.BASE_URL}/auth/login`, userData).subscribe((JWTToken: {token: string}) => {
-      if (JWTToken.token) {
-        localStorage.setItem('JWTToken', JSON.stringify(JWTToken.token));
-        this.router.navigate((['/courses']));
-      }
-    });
+  public login(userData: LoginData): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/auth/login`, userData);
   }
 
   public logout(): void {

@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { AuthService } from '../services/auth.service';
-import { retry, map, takeUntil } from 'rxjs/operators';
-import { pipe, Observable, of, Subject } from 'rxjs';
+import { map, takeUntil, filter } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+
 import { User, UserName } from '../models/user.model';
+import { AuthService } from '../services/auth.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,15 +15,29 @@ import { User, UserName } from '../models/user.model';
 export class HeaderComponent implements OnInit, OnDestroy {
   userName: string;
   destroySourse$ = new Subject();
+  currentUser$: Observable<UserName>;
 
-  constructor(public authService: AuthService) { }
+  constructor(
+    public authService: AuthService,
+    private router: Router
+    ) { }
 
   ngOnInit() {
-   this.authService.fetchUserInfo()
-    .pipe(
+    this.router.events.pipe(
       takeUntil(this.destroySourse$),
-      map((userData: User) => userData.name)
-    ).subscribe((userName: UserName) => this.userName = `${userName.first}  ${userName.last}`);
+      filter((event) => event instanceof NavigationEnd)
+      )
+    .subscribe(() => {
+      if (!this.router.url.includes('login')) {
+        this.authService.fetchUserInfo()
+        .pipe(
+          takeUntil(this.destroySourse$),
+          map((userData: User) => userData.name)
+        ).subscribe((userName: UserName) => this.userName = `${userName.first}  ${userName.last}`);
+      } else {
+        this.userName = null;
+      }
+    });
   }
 
   public onLogout(): void {

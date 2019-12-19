@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CourseClass } from '../models/course.models';
 import { CoursesService } from '../services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-course',

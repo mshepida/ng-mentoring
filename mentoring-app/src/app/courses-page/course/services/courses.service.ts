@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { CourseClass } from '../models/course.models';
 import { Observable } from 'rxjs';
+
+import { CourseClass } from '../models/course.models';
+
+export interface RequestParams {
+  textFragment: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +18,14 @@ export class CoursesService {
   constructor(private http: HttpClient) {
    }
 
-  public getCourses(amount: string): Observable<CourseClass[]> {
+  public getCourses({amount, textFragment}): Observable<CourseClass[]> {
     return this.http.get<CourseClass[]>(`${this.BASE_URL}`, {
       params: {
         start: '0',
-        count: amount
+        count: amount,
+        textFragment
       }
     });
-  }
-
-  public getCoursesWithParams(params: {textFragment: string}): Observable<CourseClass[]> {
-    return this.http.get<CourseClass[]>(`${this.BASE_URL}`, {params});
   }
 
   public createCourse(course: CourseClass): Observable<CourseClass> {

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,9 @@ export class LoginPageComponent implements OnInit {
   @ViewChild('username', {static: false}) username: ElementRef;
   @ViewChild('password', {static: false}) password: ElementRef;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -22,7 +25,13 @@ export class LoginPageComponent implements OnInit {
       login: this.username.nativeElement.value,
       password: this.password.nativeElement.value,
     };
-    this.authService.login(loginInfo);
+
+    this.authService.login(loginInfo).subscribe((JWTToken: {token: string}) => {
+      if (JWTToken.token) {
+        localStorage.setItem('JWTToken', JSON.stringify(JWTToken.token));
+        this.router.navigate((['/courses']));
+      }
+    });
   }
 
 }

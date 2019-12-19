@@ -1,6 +1,8 @@
 <mat-toolbar class="header">
     <div class="header_logo">
-        <img src="assets/images/courses-logo.png" alt="logo">
+        <a [routerLink]="['/courses']">
+            <img src="assets/images/courses-logo.png" alt="logo">
+        </a>
     </div>
     <div class="header_user-info">
         {{ userName }}
