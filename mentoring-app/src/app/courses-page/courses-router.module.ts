@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CoursesPageComponent } from './courses-page.component';
-import { AuthGuard } from '../guards/auth-guard.guard';
 import { AddCourseComponent } from './course/add-course/add-course.component';
 import { EditCourseComponent } from './course/edit-course/edit-course.component';
-import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from '../core-module/page-not-found/page-not-found.component';
+import { AuthGuard } from '../login/auth-guard/auth-guard.guard';
 
 const courseRoutes: Routes = [
   {

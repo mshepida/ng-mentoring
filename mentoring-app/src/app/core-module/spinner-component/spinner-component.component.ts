@@ -6,7 +6,7 @@ import { SpinnerService } from './spinner.service';
   templateUrl: './spinner-component.component.html',
   styleUrls: ['./spinner-component.component.scss']
 })
-export class SpinnerComponentComponent implements OnInit {
+export class SpinnerComponent implements OnInit {
 
   constructor(public spinnerService: SpinnerService) { }
 

@@ -4,40 +4,27 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { FooterComponent } from './footer/footer.component';
 import { CoursesPageModule } from './courses-page/courses-page.module';
-import { LoginModule } from './login-page/login.module';
-import { TokenInterceptorService } from './services/token-interceptor.service';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { SpinnerComponentComponent } from './spinner-component/spinner-component.component';
-import { SpinnerInterceptor } from './spinner-component/spinner.interceptor';
+import { LoginModule } from './login/login.module';
+import { CoreModule } from './core-module/core.module';
+import { SpinnerInterceptor } from './core-module/spinner-component/spinner.interceptor';
+import { TokenInterceptorService } from './login/auth-service/token-interceptor.service';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    BreadcrumbsComponent,
-    FooterComponent,
-    PageNotFoundComponent,
-    SpinnerComponentComponent
+    AppComponent
   ],
   imports: [
     LoginModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
     CoursesPageModule,
-    MatButtonModule,
+    CoreModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

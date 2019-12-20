@@ -4,7 +4,7 @@ import { CourseClass } from './models/course.models';
 import { CoursesService } from './services/courses.service';
 import { Router } from '@angular/router';
 import { Observable, Subject, fromEvent, Subscription } from 'rxjs';
-import { takeUntil, filter, distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { takeUntil, filter, distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course',
@@ -41,7 +41,11 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public handleDelete(id: number): void {
     if (confirm('You really want to delete this course?')) {
       this.coursesService.deleteCourse(id)
-      .subscribe(() => this.courses = this.coursesService.getCourses({amount: this.coursesAmount, textFragment: ''}));
+      .pipe(
+        takeUntil(this.destroySourse$),
+        switchMap(() =>  this.courses = this.coursesService.getCourses({amount: this.coursesAmount, textFragment: ''}))
+      )
+      .subscribe();
     }
   }
 

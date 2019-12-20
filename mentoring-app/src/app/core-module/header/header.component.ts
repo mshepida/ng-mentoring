@@ -3,9 +3,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 
-import { User, UserName } from '../models/user.model';
-import { AuthService } from '../services/auth.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { UserName, User } from 'src/app/login/user.model';
+import { AuthService } from 'src/app/login/auth-service/auth.service';
 
 @Component({
   selector: 'app-header',

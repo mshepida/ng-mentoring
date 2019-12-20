@@ -3,8 +3,9 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
 
-import { CoursesService } from '../courses-page/course/services/courses.service';
-import { CourseClass } from '../courses-page/course/models/course.models';
+import { CoursesService } from 'src/app/courses-page/course/services/courses.service';
+import { CourseClass } from 'src/app/courses-page/course/models/course.models';
+
 
 @Component({
   selector: 'app-breadcrumbs',
