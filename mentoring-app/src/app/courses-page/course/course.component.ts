@@ -5,6 +5,9 @@ import { CoursesService } from './services/courses.service';
 import { Router } from '@angular/router';
 import { Observable, Subject, fromEvent, Subscription } from 'rxjs';
 import { takeUntil, filter, distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { CoursesState, getCourses } from '../../store/reducers/course.reducer';
+import { LoadCourses, LoadMoreCourses, DeleteCourse } from '../../store/actions/course.actions';
 
 @Component({
   selector: 'app-course',
@@ -23,10 +26,14 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private coursesService: CoursesService) {}
+    private coursesService: CoursesService,
+    private store: Store<CoursesState>) {}
 
   ngOnInit() {
-    this.courses = this.coursesService.getCourses({amount: this.coursesAmount, textFragment: ''});
+    this.store.dispatch(
+      new LoadCourses()
+    );
+    this.courses = this.store.select(getCourses);
   }
 
   ngAfterViewInit(): void {
@@ -40,18 +47,14 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public handleDelete(id: number): void {
     if (confirm('You really want to delete this course?')) {
-      this.coursesService.deleteCourse(id)
-      .pipe(
-        takeUntil(this.destroySourse$),
-        switchMap(() =>  this.courses = this.coursesService.getCourses({amount: this.coursesAmount, textFragment: ''}))
-      )
-      .subscribe();
+      this.store.dispatch(new DeleteCourse(id));
+      this.store.dispatch(new LoadMoreCourses(this.coursesAmount));
     }
   }
 
   public onLoadMore(): void {
     this.coursesAmount = String(parseInt(this.coursesAmount, 10) + parseInt(this.coursesAmount, 10));
-    this.courses = this.coursesService.getCourses({amount: this.coursesAmount, textFragment: ''});
+    this.store.dispatch(new LoadMoreCourses(this.coursesAmount));
   }
 
   public onAddCourse(): void {

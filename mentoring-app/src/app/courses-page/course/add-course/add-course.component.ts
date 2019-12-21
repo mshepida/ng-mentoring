@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CoursesService } from '../services/courses.service';
 import { CourseClass } from '../models/course.models';
+import { Store } from '@ngrx/store';
+import { CoursesState } from '../../../store/reducers/course.reducer';
+import { AddCourse } from '../../../store/actions/course.actions';
 
 @Component({
   selector: 'app-add-course',
@@ -23,13 +25,13 @@ export class AddCourseComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private coursesService: CoursesService) { }
+    private store: Store<CoursesState>) { }
 
   ngOnInit() {
   }
 
   public onAdd(): void {
-    this.coursesService.createCourse(this.courseInfo).subscribe();
+    this.store.dispatch(new AddCourse(this.courseInfo));
     this.router.navigate(['/courses']);
   }
 
