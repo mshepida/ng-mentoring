@@ -1,5 +1,5 @@
 import { CourseClass } from '../../courses-page/course/models/course.models';
-import { State, createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as CoursesActions from '../actions/course.actions';
 
 

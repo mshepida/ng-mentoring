@@ -14,7 +14,7 @@ export class CoursesEffects {
     @Effect()
     loadCourses$ = this.actions$
         .pipe(
-            ofType('[Courses Page] Load Courses'),
+            ofType(fromCoursesAction.CoursesActionTypes.LoadCourses),
             mergeMap(() => this.coursesService.getCourses({ amount: this.coursesAmount, textFragment: '' })
                 .pipe(
                     map((courses: CourseClass[]) => new fromCoursesAction.LoadCoursesSucess(courses)),

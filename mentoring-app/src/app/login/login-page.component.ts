@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './auth-service/auth.service';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../store/reducers/auth.reducer';
+import { Login } from '../store/actions/auth.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -14,8 +17,7 @@ export class LoginPageComponent implements OnInit {
   @ViewChild('password', {static: false}) password: ElementRef;
 
   constructor(
-    private authService: AuthService,
-    private router: Router) { }
+    private store: Store<AuthState>) { }
 
   ngOnInit() {
   }
@@ -26,12 +28,7 @@ export class LoginPageComponent implements OnInit {
       password: this.password.nativeElement.value,
     };
 
-    this.authService.login(loginInfo).subscribe((JWTToken: {token: string}) => {
-      if (JWTToken.token) {
-        localStorage.setItem('JWTToken', JSON.stringify(JWTToken.token));
-        this.router.navigate((['/courses']));
-      }
-    });
+    this.store.dispatch(new Login(loginInfo));
   }
 
 }

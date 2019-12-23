@@ -13,11 +13,9 @@ import { SpinnerInterceptor } from './core-module/spinner-component/spinner.inte
 import { TokenInterceptorService } from './login/auth-service/token-interceptor.service';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './store/effects/app.effects';
 import { reducers, metaReducers } from './store/reducers';
-import { coursesReducer } from './store/reducers/course.reducer';
-import { CoursesEffects } from './store/effects/course.effects';
 import { environment } from '../environments/environment';
+import { effects } from './store/effects';
 
 
 
@@ -40,7 +38,7 @@ import { environment } from '../environments/environment';
         strictActionImmutability: true
       }
     }),
-    EffectsModule.forRoot([CoursesEffects]),
+    EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
