@@ -6,11 +6,11 @@ import { CoursesService } from './courses.service';
 
 describe('CoursesService', () => {
   let service: CoursesService;
-  let courses = of([
+  const courses = of([
     {
       id: 8693,
       name: 'duis mollit reprehenderit ad',
-      description: 'Est minim ea aute sunt laborum minim eu excepteur. Culpa sint exercitation mollit enim ad culpa aliquip laborum cillum. Dolor officia culpa labore ex eiusmod ut est ea voluptate ea nostrud.',
+      description: 'Est minim ea aute sunt laborum minim eu excepteur.d.',
       isTopRated: false,
       date: '2017-09-28T04:39:24+00:00',
       authors: [
@@ -25,7 +25,7 @@ describe('CoursesService', () => {
     {
       id: 4980,
       name: 'magna excepteur aute deserunt',
-      description: 'Sunt culpa officia minim commodo eiusmod irure sunt nostrud. Mollit aliquip id occaecat officia proident anim dolor officia qui voluptate consectetur laborum. Duis incididunt culpa aliqua mollit do fugiat ea dolor mollit irure Lorem tempor.',
+      description: 'Sunt cu tempor.',
       isTopRated: false,
       date: '2016-05-31T02:02:36+00:00',
       authors: [
@@ -47,7 +47,7 @@ describe('CoursesService', () => {
       ],
       length: 207
     }
-  ])
+  ]);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -62,12 +62,12 @@ describe('CoursesService', () => {
   });
 
   it('should return course list', () => {
-    const spy = spyOn(service, 'getCourses').and.returnValue(courses)
+    const spy = spyOn(service, 'getCourses').and.returnValue(courses);
     expect(service.getCourses('2')).toEqual(courses);
   });
 
   it('should return specific course', () => {
-    const spy = spyOn(service, 'getCourse').and.returnValue(courses[0])
+    const spy = spyOn(service, 'getCourse').and.returnValue(courses[0]);
     expect(service.getCourse(1)).toEqual(courses[0]);
   });
 
@@ -86,7 +86,7 @@ describe('CoursesService', () => {
         }
       ],
       length: 157
-    }
+    };
 
     service.createCourse(newCourse).subscribe(course => {
       expect(course).toEqual(newCourse);

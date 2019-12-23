@@ -2,10 +2,8 @@
     <div class="search">
         <form class="seatch_field">
                 <mat-form-field class="search_input">
-                  <input matInput placeholder="Search" name="search" [(ngModel)]="searchInput">
+                  <input matInput #searchField placeholder="Search" name="search" [(ngModel)]="searchInput" (keyup)=onType()>
                 </mat-form-field>
-
-                <button mat-raised-button class="search_button" (click)="onFindClick()">Find</button>
         </form> 
 </div>
 
