@@ -2,7 +2,7 @@
     <div class="search">
         <form class="seatch_field">
                 <mat-form-field class="search_input">
-                  <input matInput #searchField placeholder="Search" name="search" [(ngModel)]="searchInput" (keyup)=onType()>
+                  <input matInput placeholder="Search" name="search" [formControl]="searchInput" (keyup)=onType()>
                 </mat-form-field>
         </form> 
 </div>

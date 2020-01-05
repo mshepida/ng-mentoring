@@ -3,11 +3,12 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } fr
 import { CourseClass } from './models/course.models';
 import { CoursesService } from './services/courses.service';
 import { Router } from '@angular/router';
-import { Observable, Subject, fromEvent, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil, filter, distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { CoursesState, getCourses } from '../../store/reducers/course.reducer';
 import { LoadCourses, LoadMoreCourses, DeleteCourse } from '../../store/actions/course.actions';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-course',
@@ -17,7 +18,7 @@ import { LoadCourses, LoadMoreCourses, DeleteCourse } from '../../store/actions/
 export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public courses: Observable<CourseClass[]>;
   public showSpinner = false;
-  public searchInput: string;
+  public searchInput: FormControl;
   private destroySourse$ = new Subject();
   private coursesAmount = '5';
   private keyUpListener: Observable<{}>;
@@ -30,6 +31,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
     private store: Store<CoursesState>) {}
 
   ngOnInit() {
+    this.searchInput = new FormControl('');
     this.store.dispatch(
       new LoadCourses()
     );
@@ -37,9 +39,9 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.keyUpListener = fromEvent(this.searchField.nativeElement, 'keyup').pipe(
+    this.keyUpListener = this.searchInput.valueChanges.pipe(
       takeUntil(this.destroySourse$),
-      filter(() => Boolean(this.searchInput) && this.searchInput.length >= 3),
+      filter(() => this.searchInput.value.length >= 3),
       distinctUntilChanged(),
       debounceTime(300)
     );
@@ -62,7 +64,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public fetchCourses(): void {
-    this.courses = this.coursesService.getCourses({amount: 5, textFragment: this.searchInput});
+    this.courses = this.coursesService.getCourses({amount: 5, textFragment: this.searchInput.value});
   }
 
  public onType(): void {

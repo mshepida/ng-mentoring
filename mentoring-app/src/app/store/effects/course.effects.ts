@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType } from '@ngrx/effects';
 import { CoursesService } from '../../courses-page/course/services/courses.service';
 import * as fromCoursesAction from '../actions/course.actions';
-import { mergeMap, map, catchError, tap, switchMap } from 'rxjs/operators';
+import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
 import { CourseClass } from '../../courses-page/course/models/course.models';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 
 @Injectable()
 export class CoursesEffects {
@@ -18,7 +18,7 @@ export class CoursesEffects {
             mergeMap(() => this.coursesService.getCourses({ amount: this.coursesAmount, textFragment: '' })
                 .pipe(
                     map((courses: CourseClass[]) => new fromCoursesAction.LoadCoursesSucess(courses)),
-                    catchError(() => EMPTY)
+                    catchError(() => of([]))
                 ))
         );
 

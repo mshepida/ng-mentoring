@@ -3,24 +3,24 @@
       <div class="edit_sign">
         Edit Course
       </div>
-      <div class="edit_form" *ngIf="currentCourse">
+      <form [formGroup]="courseForm" class="edit_form" *ngIf="currentCourse">
         <mat-form-field>
-          <input matInput placeholder="Title" [(ngModel)]="currentCourseInfo.name">
+          <input matInput placeholder="Title" formControlName="title">
         </mat-form-field>
         <mat-form-field>
-          <textarea matInput placeholder="Description" name="description" rows="3" [(ngModel)]="currentCourseInfo.description"></textarea>
+          <textarea matInput placeholder="Description" name="description" rows="3" formControlName="description"></textarea>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Creation date" [(ngModel)]="currentCourseInfo.date">
+          <input matInput [matDatepicker]="picker" placeholder="Creation date" formControlName="creationDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <app-duration [currentDuration]="currentCourseInfo.length" (valueChange)="currentCourseInfo.length = $event"></app-duration>
+        <app-duration formControlName="duration"></app-duration>
         <div class="edit_buttons">
           <button mat-raised-button (click)="onCancel()">Cancel</button>
-          <button mat-raised-button (click)="onSave()">Save</button>
+          <button mat-raised-button [disabled]="!courseForm.valid" (click)="onSave()">Save</button>
         </div>
-      </div>
+      </form>
     </div>
   </mat-card>
   
