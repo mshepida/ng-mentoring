@@ -4,10 +4,12 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface AuthState {
     userInfo: string;
+    loginFailed: boolean
 }
 
 export const initialState: AuthState = {
-    userInfo: null
+    userInfo: null,
+    loginFailed: false
 };
 
 export function authReducer(state = initialState, action: fromAuth.AuthActions): AuthState {
@@ -18,6 +20,12 @@ export function authReducer(state = initialState, action: fromAuth.AuthActions):
                 userInfo: action.payload
             };
         }
+        case fromAuth.AuthActionTypes.LoginFailed: {
+            return {
+                ...state,
+                loginFailed: true
+            }
+        }
         default: {
             return state;
         }
@@ -27,3 +35,5 @@ export function authReducer(state = initialState, action: fromAuth.AuthActions):
 export const getAuthState = createFeatureSelector('auth');
 export const getCurrentUser = createSelector(getAuthState,
     (state: AuthState) => state.userInfo);
+export const getError = createSelector(getAuthState,
+    (state: AuthState) => state.loginFailed);   

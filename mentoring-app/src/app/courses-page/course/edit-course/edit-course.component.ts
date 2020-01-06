@@ -47,9 +47,15 @@ export class EditCourseComponent implements OnInit {
   }
 
   public onSave(): void {
-    console.log(this.courseForm)
-    // this.store.dispatch(new UpdateCourse(this.currentCourseInfo));
-    // this.router.navigate(['/courses']);
+    const updatedCourseInfo = {
+      ...this.currentCourseInfo,
+      name: this.courseForm.get('title').value,
+      description: this.courseForm.get('description').value,
+      date: this.courseForm.get('creationDate').value,
+      length: this.courseForm.get('duration').value
+    }
+    this.store.dispatch(new UpdateCourse(updatedCourseInfo));
+    this.router.navigate(['/courses']);
   }
 
 }

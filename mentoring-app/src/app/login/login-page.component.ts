@@ -5,7 +5,7 @@ import { AuthService } from './auth-service/auth.service';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/reducers/auth.reducer';
 import { Login } from '../store/actions/auth.actions';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -21,8 +21,8 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl('')
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     });
   }
 

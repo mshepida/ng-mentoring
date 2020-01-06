@@ -1,4 +1,4 @@
 <mat-form-field>
     <input matInput type="number" placeholder="Duration" name="duration" [value]="durationValue" (input)="onChange($event.target.value); durationValue = $event.target.value" (blur)="onTouched()" [disabled]="disabled">
 </mat-form-field>
-<span class="duration">{{durationValue | duration }}</span>
+<span class="duration">{{currentDuration | duration }}</span>
