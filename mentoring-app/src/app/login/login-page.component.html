@@ -3,6 +3,9 @@
         <div class="login_sign">
             Login
         </div>
+        <div *ngIf="isLoginFailed | async" class="login_error">
+            Error: Credentials are wrong
+        </div>
             <form [formGroup]="loginForm" class="login_form">
                 <mat-form-field class="login_username">
                         <input formControlName="username" matInput placeholder="Username" name="username">

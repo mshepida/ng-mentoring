@@ -2,10 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './auth-service/auth.service';
-import { Store } from '@ngrx/store';
-import { AuthState } from '../store/reducers/auth.reducer';
-import { Login } from '../store/actions/auth.actions';
+import { Store, select } from '@ngrx/store';
+import { AuthState } from './store/auth.reducer';
+import { Login } from './store/auth.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { isLoginFailed } from './store/auth.selectors';
 
 @Component({
   selector: 'app-login-page',
@@ -15,6 +17,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginPageComponent implements OnInit {
 
   public loginForm: FormGroup;
+  public isLoginFailed: Observable<boolean>;
 
   constructor(
     private store: Store<AuthState>) { }
@@ -24,6 +27,10 @@ export class LoginPageComponent implements OnInit {
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
+
+    this.isLoginFailed = this.store.pipe(
+      select(isLoginFailed)
+    );
   }
 
   onLogin(): void {

@@ -1,10 +1,10 @@
-import * as fromAuth from '../actions/auth.actions';
+import * as fromAuth from './auth.actions';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 
 export interface AuthState {
     userInfo: string;
-    loginFailed: boolean
+    loginFailed: boolean;
 }
 
 export const initialState: AuthState = {
@@ -20,20 +20,20 @@ export function authReducer(state = initialState, action: fromAuth.AuthActions):
                 userInfo: action.payload
             };
         }
+        case fromAuth.AuthActionTypes.LoginSuccess: {
+            return {
+                ...state,
+                loginFailed: false
+            };
+        }
         case fromAuth.AuthActionTypes.LoginFailed: {
             return {
                 ...state,
                 loginFailed: true
-            }
+            };
         }
         default: {
             return state;
         }
     }
 }
-
-export const getAuthState = createFeatureSelector('auth');
-export const getCurrentUser = createSelector(getAuthState,
-    (state: AuthState) => state.userInfo);
-export const getError = createSelector(getAuthState,
-    (state: AuthState) => state.loginFailed);   

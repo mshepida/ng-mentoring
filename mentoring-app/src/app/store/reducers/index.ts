@@ -3,8 +3,8 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
-import { coursesReducer, CoursesState } from './course.reducer';
-import { authReducer, AuthState } from './auth.reducer';
+import { coursesReducer, CoursesState } from '../../courses-page/store/course.reducer';
+import { authReducer, AuthState } from '../../login/store/auth.reducer';
 
 export interface State {
   courses: CoursesState;

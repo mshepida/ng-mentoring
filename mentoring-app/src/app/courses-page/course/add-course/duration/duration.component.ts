@@ -16,14 +16,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class DurationComponent implements OnInit, ControlValueAccessor {
   @Input() currentDuration: string;
-  
+
   durationValue: number;
   onChange: () => void;
   onTouched: () => void;
   disabled: boolean;
 
   writeValue(value: number): void {
-    this.durationValue = value ? value : 0; 
+    this.durationValue = value ? value : 0;
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

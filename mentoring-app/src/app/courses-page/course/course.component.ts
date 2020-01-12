@@ -5,10 +5,11 @@ import { CoursesService } from './services/courses.service';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, filter, distinctUntilChanged, debounceTime, switchMap } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { CoursesState, getCourses } from '../../store/reducers/course.reducer';
-import { LoadCourses, LoadMoreCourses, DeleteCourse } from '../../store/actions/course.actions';
+import { Store, select } from '@ngrx/store';
+import { CoursesState } from '../store/course.reducer';
+import { LoadCourses, LoadMoreCourses, DeleteCourse } from '../store/course.actions';
 import { FormControl } from '@angular/forms';
+import { getCourses, isLoadingCoursesFailed } from '../store/course.selectors';
 
 @Component({
   selector: 'app-course',
@@ -19,6 +20,7 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
   public courses: Observable<CourseClass[]>;
   public showSpinner = false;
   public searchInput: FormControl;
+  public isLoadingCoursesFailed: Observable<boolean>;
   private destroySourse$ = new Subject();
   private coursesAmount = '5';
   private keyUpListener: Observable<{}>;
@@ -36,6 +38,9 @@ export class CourseComponent implements OnInit, AfterViewInit, OnDestroy {
       new LoadCourses()
     );
     this.courses = this.store.select(getCourses);
+    this.isLoadingCoursesFailed = this.store.pipe(
+      select(isLoadingCoursesFailed)
+    );
   }
 
   ngAfterViewInit(): void {

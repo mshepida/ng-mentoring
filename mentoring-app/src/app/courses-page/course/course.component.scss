@@ -16,6 +16,11 @@
     .no-data-message {
         padding: 50px 0;
     }
+
+    &_error {
+        color: red
+    }
+
 }
 
 .search {

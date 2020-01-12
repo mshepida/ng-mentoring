@@ -17,6 +17,9 @@
                     (deleteCourse)="handleDelete($event)"></app-course-item>
         <div class="no-data-message" *ngIf="!(courses| async)">
             No data. Fell free to add new course
+        </div>
+        <div *ngIf="isLoadingCoursesFailed | async" class="courses_error">
+            Error fetching courses
         </div>              
     <button class="load-more-btn" (click)="onLoadMore()" mat-stroked-button>Load more</button>
 </div>

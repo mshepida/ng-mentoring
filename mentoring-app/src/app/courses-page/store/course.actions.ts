@@ -1,9 +1,10 @@
 import { Action } from '@ngrx/store';
-import { CourseClass } from '../../courses-page/course/models/course.models';
+import { CourseClass } from '../course/models/course.models';
 
 export enum CoursesActionTypes {
     LoadCourses = '[Courses Page] Load Courses',
     LoadCoursesSucess = '[Courses Page] Load Courses Sucess',
+    LoadCoursesFailed = '[Courses Page] Load Courses Failed',
     LoadMoreCourses = '[Courses Page] Load More Courses',
     LoadMoreCoursesSucess = '[Courses Page] Load More Courses Sucess',
     DeleteCourse = '[Courses Page] Delete Course',
@@ -21,6 +22,10 @@ export class LoadCoursesSucess implements Action {
     readonly type = CoursesActionTypes.LoadCoursesSucess;
 
     constructor(public payload: CourseClass[]) {}
+}
+
+export class LoadCoursesFailed implements Action {
+    readonly type = CoursesActionTypes.LoadCoursesFailed;
 }
 
 export class LoadMoreCourses implements Action {
@@ -67,6 +72,7 @@ export class AddCourse implements Action {
 
 export type CoursesActions = LoadCourses
 | LoadCoursesSucess
+| LoadCoursesFailed
 | LoadMoreCourses
 | LoadMoreCoursesSucess
 | GetCourse

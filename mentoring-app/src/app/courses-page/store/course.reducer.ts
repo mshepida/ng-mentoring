@@ -1,16 +1,18 @@
-import { CourseClass } from '../../courses-page/course/models/course.models';
+import { CourseClass } from '../course/models/course.models';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as CoursesActions from '../actions/course.actions';
+import * as CoursesActions from './course.actions';
 
 
 export interface CoursesState {
     coursesList: CourseClass[];
     currentCourse: CourseClass;
+    loadCoursesFailed: boolean;
 }
 
 export const initialState: CoursesState = {
     coursesList: [],
-    currentCourse: null
+    currentCourse: null,
+    loadCoursesFailed: false
 };
 
 export function coursesReducer(
@@ -22,7 +24,14 @@ export function coursesReducer(
         case CoursesActions.CoursesActionTypes.LoadCoursesSucess: {
             return {
                 ...state,
-                coursesList: action.payload
+                coursesList: action.payload,
+                loadCoursesFailed: false
+            };
+        }
+        case CoursesActions.CoursesActionTypes.LoadCoursesFailed: {
+            return {
+                ...state,
+                loadCoursesFailed: true
             };
         }
         case CoursesActions.CoursesActionTypes.GetCourseSucess: {
@@ -37,16 +46,3 @@ export function coursesReducer(
         }
     }
 }
-
-export const getCoursesState = createFeatureSelector<CoursesState>('courses');
-export const getCurrentCourse = createSelector(
-    getCoursesState,
-    (state: CoursesState) => state.currentCourse
-);
-export const getCoursesEntities = createSelector(
-    getCoursesState,
-    (state: CoursesState) => state.coursesList
-);
-export const getCourses = createSelector(getCoursesEntities, entities => {
-    return Object.keys(entities).map(id => entities[id]);
-});

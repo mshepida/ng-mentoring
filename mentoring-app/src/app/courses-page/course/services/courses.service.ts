@@ -14,6 +14,7 @@ export interface RequestParams {
 })
 export class CoursesService {
   private BASE_URL = 'http://localhost:3004/courses';
+  public coursesAmount = '5';
 
   constructor(private http: HttpClient) {
    }

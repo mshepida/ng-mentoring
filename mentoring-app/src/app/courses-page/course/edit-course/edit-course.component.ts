@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CourseClass } from '../models/course.models';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { CoursesState, getCurrentCourse } from '../../../store/reducers/course.reducer';
-import { GetCourse, UpdateCourse } from '../../../store/actions/course.actions';
+import { CoursesState } from '../../store/course.reducer';
+import { GetCourse, UpdateCourse } from '../../store/course.actions';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { getCurrentCourse } from '../../store/course.selectors';
 
 @Component({
   selector: 'app-edit-course',
@@ -36,7 +37,7 @@ export class EditCourseComponent implements OnInit {
           description: [this.currentCourseInfo.description, [Validators.required, Validators.maxLength(500)]],
           creationDate: [this.currentCourseInfo.date, Validators.required],
           duration: [this.currentCourseInfo.length, Validators.required]
-        })
+        });
       }
     );
 
@@ -53,7 +54,7 @@ export class EditCourseComponent implements OnInit {
       description: this.courseForm.get('description').value,
       date: this.courseForm.get('creationDate').value,
       length: this.courseForm.get('duration').value
-    }
+    };
     this.store.dispatch(new UpdateCourse(updatedCourseInfo));
     this.router.navigate(['/courses']);
   }

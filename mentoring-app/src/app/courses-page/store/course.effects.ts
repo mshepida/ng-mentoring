@@ -1,24 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { CoursesService } from '../../courses-page/course/services/courses.service';
-import * as fromCoursesAction from '../actions/course.actions';
+import { CoursesService } from '../course/services/courses.service';
+import * as fromCoursesAction from './course.actions';
 import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
-import { CourseClass } from '../../courses-page/course/models/course.models';
+import { CourseClass } from '../course/models/course.models';
 import { EMPTY, of } from 'rxjs';
 
 @Injectable()
 export class CoursesEffects {
 
-    private coursesAmount = '5';
-
     @Effect()
     loadCourses$ = this.actions$
         .pipe(
             ofType(fromCoursesAction.CoursesActionTypes.LoadCourses),
-            mergeMap(() => this.coursesService.getCourses({ amount: this.coursesAmount, textFragment: '' })
+            mergeMap(() => this.coursesService.getCourses({ amount: this.coursesService.coursesAmount, textFragment: '' })
                 .pipe(
                     map((courses: CourseClass[]) => new fromCoursesAction.LoadCoursesSucess(courses)),
-                    catchError(() => of([]))
+                    catchError(() => of(new fromCoursesAction.LoadCoursesFailed()))
                 ))
         );
 

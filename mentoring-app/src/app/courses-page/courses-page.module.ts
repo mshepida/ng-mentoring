@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
-import { CourseDetailsComponent } from '../courses-page/course/course-details/course-details.component';
 import { CourseItemComponent } from '../courses-page/course/course-item/course-item.component';
 import { CourseComponent } from '../courses-page/course/course.component';
 import { CoursesPageComponent } from './courses-page.component';
@@ -26,7 +25,6 @@ import { CreationDateComponent } from './course/edit-course/creation-date/creati
 
 @NgModule({
   declarations: [
-    CourseDetailsComponent,
     CoursesPageComponent,
     CourseItemComponent,
     CourseComponent,

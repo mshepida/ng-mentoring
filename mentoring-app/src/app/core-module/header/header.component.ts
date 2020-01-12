@@ -7,8 +7,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import { UserName } from 'src/app/login/user.model';
 import { AuthService } from 'src/app/login/auth-service/auth.service';
 import { Store, select } from '@ngrx/store';
-import { AuthState, getCurrentUser } from 'src/app/store/reducers/auth.reducer';
-import { LoadUserInfo } from 'src/app/store/actions/auth.actions';
+import { AuthState } from 'src/app/login/store/auth.reducer';
+import { LoadUserInfo } from 'src/app/login/store/auth.actions';
+import { getCurrentUser } from 'src/app/login/store/auth.selectors';
 
 @Component({
   selector: 'app-header',
