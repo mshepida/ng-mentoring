@@ -2,9 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from './auth-service/auth.service';
-import { Store } from '@ngrx/store';
-import { AuthState } from '../store/reducers/auth.reducer';
-import { Login } from '../store/actions/auth.actions';
+import { Store, select } from '@ngrx/store';
+import { AuthState } from './store/auth.reducer';
+import { Login } from './store/auth.actions';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { isLoginFailed } from './store/auth.selectors';
 
 @Component({
   selector: 'app-login-page',
@@ -13,19 +16,27 @@ import { Login } from '../store/actions/auth.actions';
 })
 export class LoginPageComponent implements OnInit {
 
-  @ViewChild('username', {static: false}) username: ElementRef;
-  @ViewChild('password', {static: false}) password: ElementRef;
+  public loginForm: FormGroup;
+  public isLoginFailed: Observable<boolean>;
 
   constructor(
     private store: Store<AuthState>) { }
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
+    });
+
+    this.isLoginFailed = this.store.pipe(
+      select(isLoginFailed)
+    );
   }
 
   onLogin(): void {
     const loginInfo = {
-      login: this.username.nativeElement.value,
-      password: this.password.nativeElement.value,
+      login: this.loginForm.value.username,
+      password: this.loginForm.value.password,
     };
 
     this.store.dispatch(new Login(loginInfo));

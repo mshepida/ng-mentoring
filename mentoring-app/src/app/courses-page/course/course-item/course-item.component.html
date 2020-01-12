@@ -1,5 +1,4 @@
-<mat-card (click)=goToCourse(course.id)
-        [appHighlightByDate]='course.date'
+<mat-card [appHighlightByDate]='course.date'
         [ngClass]="{'top-rated': course?.isTopRated}">
     <div class="course">
         <div class="course_date">

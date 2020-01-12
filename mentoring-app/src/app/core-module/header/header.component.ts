@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { map, takeUntil, filter } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 
 import { Router, NavigationEnd } from '@angular/router';
 import { UserName } from 'src/app/login/user.model';
 import { AuthService } from 'src/app/login/auth-service/auth.service';
 import { Store, select } from '@ngrx/store';
-import { AuthState, getCurrentUser } from 'src/app/store/reducers/auth.reducer';
-import { LoadUserInfo } from 'src/app/store/actions/auth.actions';
+import { AuthState } from 'src/app/login/store/auth.reducer';
+import { LoadUserInfo } from 'src/app/login/store/auth.actions';
+import { getCurrentUser } from 'src/app/login/store/auth.selectors';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,6 @@ import { LoadUserInfo } from 'src/app/store/actions/auth.actions';
 export class HeaderComponent implements OnInit, OnDestroy {
   userName: string;
   destroySourse$ = new Subject();
-  currentUser$: Observable<UserName>;
 
   constructor(
     public authService: AuthService,

@@ -28,8 +28,4 @@ export class CourseItemComponent implements OnInit {
     event.stopPropagation();
     this.deleteCourse.emit(courseId);
   }
-
-  public goToCourse(id: number): void {
-    this.router.navigate((['/courses', id]));
-  }
 }

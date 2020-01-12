@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AuthService } from 'src/app/login/auth-service/auth.service';
-import * as fromAuth from '../actions/auth.actions';
+import * as fromAuth from './auth.actions';
 import { mergeMap, filter, tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User, UserName } from 'src/app/login/user.model';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 
 
 @Injectable()
 export class AuthEffects {
 
-    @Effect({dispatch: false})
+    @Effect()
     login$ = this.actions$.pipe(
         ofType(fromAuth.AuthActionTypes.Login),
         mergeMap((action: fromAuth.Login) => this.authService.login(action.payload)
@@ -20,6 +20,10 @@ export class AuthEffects {
             tap((JWTToken: {token: string}) => {
                 localStorage.setItem('JWTToken', JSON.stringify(JWTToken.token));
                 this.router.navigate((['/courses']));
+            }),
+            map(() => new fromAuth.LoginSuccess()),
+            catchError(() => {
+                return of(new fromAuth.LoginFailed());
             })
         ))
     );

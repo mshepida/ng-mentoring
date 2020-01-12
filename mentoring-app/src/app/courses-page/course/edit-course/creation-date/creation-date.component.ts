@@ -1,29 +1,27 @@
 import { Component, OnInit, ChangeDetectionStrategy, forwardRef, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
-  selector: 'app-duration',
-  templateUrl: './duration.component.html',
-  styleUrls: ['./duration.component.scss'],
+  selector: 'app-creation-date',
+  templateUrl: './creation-date.component.html',
+  styleUrls: ['./creation-date.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DurationComponent),
+      useExisting: forwardRef(() => CreationDateComponent),
       multi: true
     }
   ]
 })
-export class DurationComponent implements OnInit, ControlValueAccessor {
-  @Input() currentDuration: string;
-
-  durationValue: number;
+export class CreationDateComponent implements OnInit, ControlValueAccessor {
+  date: string;
   onChange: () => void;
   onTouched: () => void;
   disabled: boolean;
 
-  writeValue(value: number): void {
-    this.durationValue = value ? value : 0;
+  writeValue(date: string): void {
+    this.date = date;
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

@@ -2,7 +2,7 @@
     <div class="search">
         <form class="seatch_field">
                 <mat-form-field class="search_input">
-                  <input matInput #searchField placeholder="Search" name="search" [(ngModel)]="searchInput" (keyup)=onType()>
+                  <input matInput placeholder="Search" name="search" [formControl]="searchInput" (keyup)=onType()>
                 </mat-form-field>
         </form> 
 </div>
@@ -17,6 +17,9 @@
                     (deleteCourse)="handleDelete($event)"></app-course-item>
         <div class="no-data-message" *ngIf="!(courses| async)">
             No data. Fell free to add new course
+        </div>
+        <div *ngIf="isLoadingCoursesFailed | async" class="courses_error">
+            Error fetching courses
         </div>              
     <button class="load-more-btn" (click)="onLoadMore()" mat-stroked-button>Load more</button>
 </div>
