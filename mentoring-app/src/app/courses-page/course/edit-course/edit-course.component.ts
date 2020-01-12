@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseClass } from '../models/course.models';
-import { CoursesService } from '../services/courses.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { CoursesState, getCurrentCourse } from '../../../store/reducers/course.reducer';
+import { GetCourse, UpdateCourse } from '../../../store/actions/course.actions';
 
 @Component({
   selector: 'app-edit-course',
@@ -10,18 +12,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EditCourseComponent implements OnInit {
 
-  courseInfo: CourseClass;
+  currentCourse: CourseClass;
+  currentCourseInfo: CourseClass;
 
   constructor(
-    private coursesService: CoursesService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private store: Store<CoursesState>) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      this.coursesService.getCourse(parseInt(params.get('id'), 10))
-        .subscribe(course => this.courseInfo = course);
+      this.store.dispatch(new GetCourse(parseInt(params.get('id'), 10)));
     });
+    this.store.select(getCurrentCourse).subscribe(
+      (currentCourse: CourseClass) => {
+        this.currentCourse = currentCourse;
+        this.currentCourseInfo = { ...this.currentCourse };
+      }
+    );
+
   }
 
   public onCancel(): void {
@@ -29,7 +38,7 @@ export class EditCourseComponent implements OnInit {
   }
 
   public onSave(): void {
-    this.coursesService.updateCourse(this.courseInfo).subscribe();
+    this.store.dispatch(new UpdateCourse(this.currentCourseInfo));
     this.router.navigate(['/courses']);
   }
 

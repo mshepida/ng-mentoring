@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { LoginData } from '../models/user.model';
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import { LoginData } from '../user.model';
 
 describe('AuthService', () => {
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);

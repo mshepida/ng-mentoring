@@ -4,8 +4,11 @@ import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 
 import { Router, NavigationEnd } from '@angular/router';
-import { UserName, User } from 'src/app/login/user.model';
+import { UserName } from 'src/app/login/user.model';
 import { AuthService } from 'src/app/login/auth-service/auth.service';
+import { Store, select } from '@ngrx/store';
+import { AuthState, getCurrentUser } from 'src/app/store/reducers/auth.reducer';
+import { LoadUserInfo } from 'src/app/store/actions/auth.actions';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store<AuthState>
     ) { }
 
   ngOnInit() {
@@ -29,11 +33,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
     .subscribe(() => {
       if (!this.router.url.includes('login')) {
-        this.authService.fetchUserInfo()
-        .pipe(
-          takeUntil(this.destroySourse$),
-          map((userData: User) => userData.name)
-        ).subscribe((userName: UserName) => this.userName = `${userName.first}  ${userName.last}`);
+        this.store.dispatch(new LoadUserInfo());
+        this.store.pipe(
+          select(getCurrentUser)
+        ).subscribe((userInfo: string) => this.userName = userInfo);
       } else {
         this.userName = null;
       }

@@ -3,19 +3,19 @@
       <div class="edit_sign">
         Edit Course
       </div>
-      <div class="edit_form" *ngIf="courseInfo">
+      <div class="edit_form" *ngIf="currentCourse">
         <mat-form-field>
-          <input matInput placeholder="Title" [(ngModel)]="courseInfo.name">
+          <input matInput placeholder="Title" [(ngModel)]="currentCourseInfo.name">
         </mat-form-field>
         <mat-form-field>
-          <textarea matInput placeholder="Description" name="description" rows="3" [(ngModel)]="courseInfo.description"></textarea>
+          <textarea matInput placeholder="Description" name="description" rows="3" [(ngModel)]="currentCourseInfo.description"></textarea>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Creation date" [(ngModel)]="courseInfo.date">
+          <input matInput [matDatepicker]="picker" placeholder="Creation date" [(ngModel)]="currentCourseInfo.date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <app-duration [currentDuration]="courseInfo.length" (valueChange)="courseInfo.length = $event"></app-duration>
+        <app-duration [currentDuration]="currentCourseInfo.length" (valueChange)="currentCourseInfo.length = $event"></app-duration>
         <div class="edit_buttons">
           <button mat-raised-button (click)="onCancel()">Cancel</button>
           <button mat-raised-button (click)="onSave()">Save</button>
